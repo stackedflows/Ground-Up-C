@@ -11,28 +11,33 @@ struct node{
   int data;
 };
 
+struct node * linked_list;
+
 int main(){
-  struct node * ll = malloc(LL_SIZE * sizeof(struct node));
+
+  linked_list = malloc(LL_SIZE * sizeof(struct node));
 
   for(int i = 0; i < LL_SIZE; i++){
     struct node item = {NULL, NULL, i};
-    ll[i] = item;
+    linked_list[i] = item;
   }
 
   for(int i = 0; i < LL_SIZE; i++){
     if(i == 0){
-      ll[i].prev_node = NULL;
-      ll[i].nxt_node = &ll[i + 1];
+      linked_list[i].prev_node = NULL;
+      linked_list[i].nxt_node = &linked_list[i + 1];
     }
     else if(i > 0 && i < LL_SIZE - 2){
-      ll[i].prev_node = &ll[i - 1];
-      ll[i].nxt_node = &ll[i + 1];
+      linked_list[i].prev_node = &linked_list[i - 1];
+      linked_list[i].nxt_node = &linked_list[i + 1];
     }
     else{
-      ll[i].prev_node = &ll[i - 1];
-      ll[i].nxt_node = NULL;
+      linked_list[i].prev_node = &linked_list[i - 1];
+      linked_list[i].nxt_node = NULL;
     }
   }
+
+  free(linked_list);
 
   return 0;
 }
