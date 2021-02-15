@@ -6,38 +6,36 @@
 #define LL_SIZE 10
 
 struct node{
+  struct node *next_node;
   struct node *prev_node;
-  struct node *nxt_node;
   int data;
 };
 
-struct node * linked_list;
+struct node * head = NULL;
+
+void insert(int data){
+  struct node * temp;
+  temp = (struct node *)malloc(sizeof(struct node));
+  temp -> data = data;
+
+  if(head == NULL){
+    head = temp;
+    head -> next_node = NULL;
+  }
+
+  temp -> next_node = head;
+
+  head = temp;
+}
 
 int main(){
 
-  linked_list = malloc(LL_SIZE * sizeof(struct node));
+  insert(6);
+  insert(4);
+  insert(3);
 
-  for(int i = 0; i < LL_SIZE; i++){
-    struct node item = {NULL, NULL, i};
-    linked_list[i] = item;
-  }
-
-  for(int i = 0; i < LL_SIZE; i++){
-    if(i == 0){
-      linked_list[i].prev_node = NULL;
-      linked_list[i].nxt_node = &linked_list[i + 1];
-    }
-    else if(i > 0 && i < LL_SIZE - 2){
-      linked_list[i].prev_node = &linked_list[i - 1];
-      linked_list[i].nxt_node = &linked_list[i + 1];
-    }
-    else{
-      linked_list[i].prev_node = &linked_list[i - 1];
-      linked_list[i].nxt_node = NULL;
-    }
-  }
-
-  free(linked_list);
+  printf("%d\n", head -> data);
+  printf("%d\n", head -> next_node -> data);
 
   return 0;
 }
