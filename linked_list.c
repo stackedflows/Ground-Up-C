@@ -24,6 +24,7 @@ void insert(int data){
   }
 
   temp -> next_node = head;
+  head -> prev_node = temp -> next_node;
 
   head = temp;
 }
@@ -36,6 +37,7 @@ int main(){
 
   printf("%d\n", head -> data);
   printf("%d\n", head -> next_node -> data);
+  printf("%d\n", head -> next_node -> prev_node -> data);
 
   return 0;
 }
