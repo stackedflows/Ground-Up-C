@@ -3,8 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define LL_SIZE 10
-
 struct node{
   struct node *next_node;
   struct node *prev_node;
