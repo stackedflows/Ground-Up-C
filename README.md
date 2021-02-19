@@ -6,6 +6,6 @@ app for personal finance managment.
 
 repo for fundamental programs
 
-# nerotick
+# neurotick
 
 implimentation of brainfuck
