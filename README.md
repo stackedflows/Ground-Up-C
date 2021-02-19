@@ -1,4 +1,5 @@
-# Ground-Up-C-Programs
-Fundamental programs written in C
+# Finance
 
-Abandon humanity and return to MONKE.
+app for personal finance managment.
+
+# 
