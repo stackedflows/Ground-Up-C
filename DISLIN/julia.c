@@ -3,7 +3,7 @@
 #include <math.h>
 #include "dislin.h"
 
-#define steps 1000000000
+#define steps 1e6
 
 long double julia_x(long double x, long double y){
   return x*x - y*y;
@@ -31,7 +31,7 @@ int main(void){
 
   long double current_x = 0.0;
   long double current_y = 0.0;
-  for(int i = 0; i < steps; i++){
+  for(int i = 0; i < (int)steps; i++){
     if(_abs(current_x, current_y) > r_lim){
       break;
     }
@@ -39,13 +39,14 @@ int main(void){
       long double julia_i_x = julia_x(current_x, current_y);
       current_x = julia_i_x + const_x;
       julia_element[0] = current_x;
-      
+
       long double julia_i_y = julia_y(current_x, current_y);
       current_y = julia_i_y + const_y;
       julia_element[1] = current_y;
 
       julia_set[i] = julia_element;
     }
+    printf("%d\n", i);
   }
 
   //graph julia set
