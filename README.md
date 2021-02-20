@@ -4,7 +4,7 @@ app for personal finance managment.
 
 # data structures
 
-repo for fundamental programs
+repo for fundamental software concepts
 
 # neurotick
 
