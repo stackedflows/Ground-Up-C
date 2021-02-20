@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-//#include "dislin.h"
+#include "dislin.h"
+
+#define steps 10000
 
 long double julia_x(long double x, long double y){
   return x*x - y*y;
@@ -10,19 +12,47 @@ long double julia_y(long double x, long double y){
   return 2*x*y;
 }
 
-void main(){
+long double abs(long float x, long float y){
+  return sqrt(x * x + y * y);
+}
 
-  long double radius;
+int main(void){
 
-  long double const_x = -0.8;
-  long double const_y = 0.156;
+  //generate jula set data for particular constant
+  static long double const_x = -0.8;
+  static long double const_y = 0.156;
 
-  radius = sqrt(const_y * const_y + const_x * const_x);
+  static long double radius = abs(const_x, const_y);
 
+  static long float r_lim = 1.5320213176092827; //solves r_lim(r_lim - 1) = radius
 
-  //disini();
-  //messag("test", 10, 10);
-  //disfin();
+  long double ** julia_set = malloc(steps * sizeof(long double *));
+  long double * julia_element = malloc(2 * sizeof(long double));
 
-  printf("%f\n", (double)radius);
+  long double current_x = 0.0;
+  long double current_y = 0.0;
+  for(int i = 0; i < steps; i++){
+    if(abs(current_x, current_y) > r_lim){
+      break;
+    }
+    else{
+      long double julia_i_x = julia_x(current_x);
+      long double julia_i_y = julia_y(current_y);
+      current_x = julia_i_x + const_x;
+      julia_element[0] = current_x;
+      current_y = julia_i_y + const_y;
+      julia_element[1] = current_y;
+      julia_set[i] = julia_element;
+    }
+  }
+
+  //graph julia set
+  disini();
+  messag("test", 10, 10);
+  disfin();
+
+  free(julia_set);
+  free(julia_element);
+
+  return 0;
 }
