@@ -1,3 +1,3 @@
 # DISLIN
 
-using https://www.mps.mpg.de/dislin/ to make interesting math 
+using https://www.mps.mpg.de/dislin/ 
