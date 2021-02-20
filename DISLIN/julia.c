@@ -6,10 +6,10 @@
 #define steps 1e6
 
 long double julia_x(long double x, long double y){
-  return x*x - y*y;
+  return x * x - y * y;
 }
 long double julia_y(long double x, long double y){
-  return 2*x*y;
+  return 2 * x * y;
 }
 
 long double _abs(long double x, long double y){
@@ -28,9 +28,11 @@ int main(void){
 
   long double ** julia_set = malloc(steps * sizeof(long double *));
   long double * julia_element = malloc(2 * sizeof(long double));
-
+  
+  //initialise at 0, 0
   long double current_x = 0.0;
   long double current_y = 0.0;
+  
   for(int i = 0; i < (int)steps; i++){
     if(_abs(current_x, current_y) > r_lim){
       break;
