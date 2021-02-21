@@ -61,8 +61,8 @@ int main(void){
   //1000 points on the contour
   int POINTS = 1000;
 
-  long double * julia_set_x = malloc(POINTS * sizeof(long double));
-  long double * julia_set_y = malloc(POINTS * sizeof(long double));
+  float * julia_set_x = malloc(POINTS * sizeof(float));
+  float * julia_set_y = malloc(POINTS * sizeof(float));
 
   long double init_x = -1.5;
   long double init_y = -1.5;
@@ -75,8 +75,8 @@ int main(void){
       init_y = (long double)(init_y + step);
       int current_julia = julia_element(init_x, init_y);
       if(current_julia < 10 && count < POINTS){
-        julia_set_x[count] = init_x;
-        julia_set_y[count] = init_y;
+        julia_set_x[count] = (float)init_x;
+        julia_set_y[count] = (float)init_y;
       }
     }
     count++;
