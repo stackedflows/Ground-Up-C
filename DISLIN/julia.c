@@ -77,6 +77,7 @@ int main(void){
   long double * julia_set_x = malloc(1000 * sizeof(long double));
   long double * julia_set_y = malloc(1000 * sizeof(long double));
 
+  //plot julia contour between -1.5, 1.5
   long double temp_x = -1.5;
   for(int x = 0; x < 1000; x++){
     temp_x = temp_x + 0.001;
