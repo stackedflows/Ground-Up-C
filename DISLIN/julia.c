@@ -47,6 +47,7 @@ int julia_element(long double x, long double y){
   return count;
 }
 
+//dislin library calls
 void plot_j(float * x, float * y, int points){
   scrmod ("revers");
   setpag ("da4l");
@@ -78,21 +79,23 @@ int main(void){
   long double * julia_set_y = malloc(1000 * sizeof(long double));
 
   //plot julia contour between -1.5, 1.5
+  int count = 0;
   long double temp_x = -1.5;
   for(int x = 0; x < 1000; x++){
     temp_x = temp_x + 0.001;
     long double temp_y = -1.5;
     for(int y = 0; y < 1000; y++){
       temp_y = temp_y + 0.001;
-      if(julia_element(temp_x, temp_y) < 10)){
+      if(julia_element(temp_x, temp_y) < 10){
         julia_set_x[count] = temp_x;
         julia_set_y[count] = temp_y;
         count = count + 1;
       }
     }
   }
-  
+
   //plot results
+
 
   return 0;
 }
