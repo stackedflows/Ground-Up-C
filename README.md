@@ -1,15 +1,15 @@
 # Finance
 
-app for personal finance managment.
+App for personal finance managment.
 
 # data structures
 
-repo for fundamental software concepts
+Fundamental software concepts
 
 # neurotick
 
-implimentation of brainfuck
+Implimentation of brainfuck
 
 # DISLIN
 
-using the awesome graphics library https://www.mps.mpg.de/dislin/ to make math-stuff
+Awesome graphics library https://www.mps.mpg.de/dislin/ to make math-stuff
