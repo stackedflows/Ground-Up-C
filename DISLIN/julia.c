@@ -47,24 +47,6 @@ int julia_element(long double x, long double y){
   return count;
 }
 
-//dislin library calls
-void plot_j(float * x, float * y, int points){
-  scrmod ("revers");
-  setpag ("da4l");
-  metafl ("cons");
-  disini ();
-  pagera ();
-
-  titlin ("Julia Set", 1);
-  titlin ("Z = Z*Z - 0.8 + 0.156i", 3);
-
-  name   ("R-axis", "x");
-  name   ("I-axis", "y");
-
-  graf(-1.5, 1.5, -1.5, 0.5, -1.5, 1.5, -1.5, 0.5);
-  qplsca(x, y, J_STEPS * 2);
-}
-
 int main(void){
   //constants
   const_x = -0.8;
@@ -74,28 +56,47 @@ int main(void){
   r_lim[0] = 1.5320213637808087; //solves r_lim(r_lim - 1) = radius
   r_lim[1] = -0.5320213637808087;
 
-  //plot contour of julia set
-  float * julia_set_x = malloc(1000 * sizeof(long double));
-  float * julia_set_y = malloc(1000 * sizeof(long double));
+  //1000 points on the contour
+  static int POINTS = 1000;
+
+  float * julia_set_x = malloc(POINTS * sizeof(float));
+  float * julia_set_y = malloc(POINTS * sizeof(float));
 
   //plot julia contour between -1.5, 1.5
   int count = 0;
   long double temp_x = -1.5;
-  for(int x = 0; x < 1000; x++){
+  for(int x = 0; x < POINTS; x++){
     temp_x = temp_x + 0.001;
     long double temp_y = -1.5;
-    for(int y = 0; y < 1000; y++){
+    for(int y = 0; y < POINTS; y++){
       temp_y = temp_y + 0.001;
       if(julia_element(temp_x, temp_y) < 10){
         julia_set_x[count] = (float)temp_x;
         julia_set_y[count] = (float)temp_y;
         count = count + 1;
+        printf("%f\n", julia_set_x[count]);
       }
     }
   }
 
-  //plot results
-  plot_j(julia_set_x, julia_set_y, 1000);
+  for(int i = 0; i < POINTS; i++){
+    printf("x: %f, y: %f\n", julia_set_x[i], julia_set_y[i]);
+  }
+
+  scrmod ("revers");
+  setpag ("da4l");
+  metafl ("cons");
+  disini ();
+  pagera ();
+
+  titlin ("Julia Set", 1);
+  titlin ("F(Z) = Z*Z - 0.8 + 0.156i", 3);
+
+  name   ("R-axis", "x");
+  name   ("I-axis", "y");
+
+
+  qplsca(julia_set_x, julia_set_y, POINTS);
 
   return 0;
 }
