@@ -75,8 +75,8 @@ int main(void){
   r_lim[1] = -0.5320213637808087;
 
   //plot contour of julia set
-  long double * julia_set_x = malloc(1000 * sizeof(long double));
-  long double * julia_set_y = malloc(1000 * sizeof(long double));
+  float * julia_set_x = malloc(1000 * sizeof(long double));
+  float * julia_set_y = malloc(1000 * sizeof(long double));
 
   //plot julia contour between -1.5, 1.5
   int count = 0;
@@ -87,15 +87,15 @@ int main(void){
     for(int y = 0; y < 1000; y++){
       temp_y = temp_y + 0.001;
       if(julia_element(temp_x, temp_y) < 10){
-        julia_set_x[count] = temp_x;
-        julia_set_y[count] = temp_y;
+        julia_set_x[count] = (float)temp_x;
+        julia_set_y[count] = (float)temp_y;
         count = count + 1;
       }
     }
   }
 
   //plot results
-
+  plot_j(julia_set_x, julia_set_y, 1000);
 
   return 0;
 }
