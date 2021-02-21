@@ -3,17 +3,17 @@
 #include <math.h>
 #include "dislin.h"
 
-#define steps 1e6
+#define steps 100
 
 long double julia_x(long double x, long double y){
-  return x * x - y * y;
+  return x*x - y*y;
 }
 long double julia_y(long double x, long double y){
-  return 2 * x * y;
+  return 2*x*y;
 }
 
 long double _abs(long double x, long double y){
-  return sqrt(x * x + y * y);
+  return sqrt((x * x) + (y * y));
 }
 
 int main(void){
@@ -26,38 +26,47 @@ int main(void){
 
   static long double r_lim = 1.5320213176092827; //solves r_lim(r_lim - 1) = radius
 
-  long double ** julia_set = malloc(steps * sizeof(long double *));
-  long double * julia_element = malloc(2 * sizeof(long double));
-  
-  //initialise at 0, 0
-  long double current_x = 0.0;
-  long double current_y = 0.0;
-  
+  long double * julia_element_x = malloc(steps * sizeof(long double));
+  long double * julia_element_y = malloc(steps * sizeof(long double));
+  julia_element_x[0] = 0.0;
+  julia_element_y[0] = 0.0;
+
+  //generate julia set
   for(int i = 0; i < (int)steps; i++){
-    if(_abs(current_x, current_y) > r_lim){
+    if(_abs(julia_element_x[i], julia_element_y[i]) > r_lim){
       break;
     }
     else{
-      long double julia_i_x = julia_x(current_x, current_y);
-      current_x = julia_i_x + const_x;
-      julia_element[0] = current_x;
+      long double next_x = julia_x(julia_element_x[i], julia_element_y[i]);
+      long double next_y = julia_y(julia_element_x[i], julia_element_y[i]);
+      julia_element_x[i + 1] = next_x + const_x;
+      julia_element_y[i + 1] = next_y + const_y;
 
-      long double julia_i_y = julia_y(current_x, current_y);
-      current_y = julia_i_y + const_y;
-      julia_element[1] = current_y;
-
-      julia_set[i] = julia_element;
+      printf("%Lf ; %Lf ;%d\n", next_x, next_y, i);
     }
-    printf("%d\n", i);
   }
 
-  //graph julia set
-  disini();
-  messag("test", 10, 10);
-  disfin();
-
-  free(julia_set);
-  free(julia_element);
+  free(julia_element_x);
+  free(julia_element_y);
 
   return 0;
+}
+
+void plot(float * x, float * y){
+  scrmod ("revers");
+  setpag ("da4l");
+  metafl ("cons");
+  disini ();
+  pagera ();
+
+  titlin ("Julia Set", 1);
+  titlin ("Z = Z*Z - 0.8 + 0.156i", 3);
+
+  name   ("R-axis", "x");
+  name   ("I-axis", "y");
+
+  graf(-5.0, 5.0, -5.0, 1.0, -5.0, 5.0, -5.0, 1.0);
+
+  qplsca(x, y, (int)steps * 2);
+  disfin();
 }
