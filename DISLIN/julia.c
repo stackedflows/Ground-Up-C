@@ -39,11 +39,11 @@ int main(void){
   long double radius = _abs(const_x, const_y);
   r_lim = 1.5320213637808087; //solves r_lim(r_lim - 1) = radius
 
-  static int julia_lim = 100000;
+  static int julia_lim = 100;
 
   //establish grid and scale factor
-  int POINTS = 10000;
-  long double scale = 0.03;
+  int POINTS = 1000000;
+  long double scale = 0.003;
 
   //generate julia subset of grid
   float * julia_set_x = malloc(POINTS * sizeof(float));
@@ -52,12 +52,12 @@ int main(void){
   int current_x = 0;
   int count = 0;
   for(int i = 0; i < POINTS; i++){
-    if(i % 100 == 0){
+    if(i % 1000 == 0){
       current_x++;
     }
 
     float _x = (float)(-1.5 + current_x * scale);
-    float _y = (float)(-1.5 + (i % 100) * scale);
+    float _y = (float)(-1.5 + (i % 1000) * scale);
 
     if(julia_element(_x, _y, julia_lim) == julia_lim){
       julia_set_x[i] = _x;
