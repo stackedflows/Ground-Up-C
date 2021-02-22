@@ -26,7 +26,7 @@ int julia_element(float x, float y, int max_steps){
   while(i < max_steps && _abs(iter_x, iter_y) < r_lim){
     long double x_temp = julia_x(iter_x, iter_y);
     iter_y = julia_y(iter_x, iter_y) + const_y;
-    iter_x = julia_x(iter_x, iter_y) + const_x;
+    iter_x = x_temp + const_x;
     i++;
   }
   return i;
@@ -34,16 +34,16 @@ int julia_element(float x, float y, int max_steps){
 
 int main(void){
   //constants
-  const_x = -0.8;
-  const_y = 0.156;
+  const_x = -0.61803398875; //1 - golden ratio
+  const_y = 0.0;
   long double radius = _abs(const_x, const_y);
-  r_lim = 1.5320213637808087; //solves r_lim(r_lim - 1) = radius
+  r_lim = 2; //solves r_lim(r_lim - 1) = radius
 
-  static int julia_lim = 100;
+  static int julia_lim = 1000;
 
   //establish grid and scale factor
-  int POINTS = 1000000;
-  long double scale = 0.003;
+  int POINTS = 10000;
+  long double scale = 0.04;
 
   //generate julia subset of grid
   float * julia_set_x = malloc(POINTS * sizeof(float));
@@ -52,12 +52,12 @@ int main(void){
   int current_x = 0;
   int count = 0;
   for(int i = 0; i < POINTS; i++){
-    if(i % 1000 == 0){
+    if(i % 100 == 0){
       current_x++;
     }
 
-    float _x = (float)(-1.5 + current_x * scale);
-    float _y = (float)(-1.5 + (i % 1000) * scale);
+    float _x = (float)(-2 + current_x * scale);
+    float _y = (float)(-2 + (i % 100) * scale);
 
     if(julia_element(_x, _y, julia_lim) == julia_lim){
       julia_set_x[i] = _x;
@@ -76,12 +76,12 @@ int main(void){
   disini();
 
   titlin("Julia Set", 1);
-  titlin("F(Z) = Z*Z - 0.8 + 0.156i", 3);
+  titlin("F(Z) = Z*Z - 0.61803398875", 3);
 
   name("R-axis", "x");
   name("I-axis", "y");
 
-  qplsca(julia_set_x, julia_set_y, 5 * count);
+  qplsca(julia_set_x, julia_set_y, 6 * count);
 
   free(julia_set_x);
   free(julia_set_y);
