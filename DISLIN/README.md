@@ -4,8 +4,7 @@ C implimentation of the julia fractals
 
 still some kinks to iron out . . . 
 
-![j_attemp_0 (3)](https://user-images.githubusercontent.com/73109076/108697410-b9a24e80-74fa-11eb-9175-75d341b8f8bc.png)
+![dragon (2)](https://user-images.githubusercontent.com/73109076/108780145-ec326280-755f-11eb-8dc6-c179c8537ade.png)
 
-![j_attemp_0 (4)](https://user-images.githubusercontent.com/73109076/108698148-b491cf00-74fb-11eb-9d8f-b3080f86714f.png)
+![mandelbrotset (2)](https://user-images.githubusercontent.com/73109076/108780252-0bc98b00-7560-11eb-9484-98b8082e68a9.png)
 
-![j_attemp_0 (5)](https://user-images.githubusercontent.com/73109076/108698810-6fba6800-74fc-11eb-9060-173de17694da.png)
