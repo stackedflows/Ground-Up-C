@@ -8,3 +8,6 @@ still some kinks to iron out . . .
 
 ![mandelbrotset (2)](https://user-images.githubusercontent.com/73109076/108780252-0bc98b00-7560-11eb-9484-98b8082e68a9.png)
 
+# e8.c 
+
+. . . 
