@@ -39,14 +39,15 @@ int main(void){
   long double radius = _abs(const_x, const_y);
   r_lim = 1.5320213637808087; //solves r_lim(r_lim - 1) = radius
 
+  static int julia_lim = 100000;
+
   //establish grid and scale factor
   int POINTS = 10000;
-  long double scale = 0.015;
+  long double scale = 0.03;
 
-  float * grid_x = malloc(POINTS * sizeof(float));
-  float * grid_y = malloc(POINTS * sizeof(float));
-
-  int * poi = malloc(POINTS * sizeof(int));
+  //generate julia subset of grid
+  float * julia_set_x = malloc(POINTS * sizeof(float));
+  float * julia_set_y = malloc(POINTS * sizeof(float));
 
   int current_x = 0;
   int count = 0;
@@ -54,24 +55,17 @@ int main(void){
     if(i % 100 == 0){
       current_x++;
     }
-    grid_x[i] = (float)(current_x * scale);
-    grid_y[i] = (float)(i % 100 * scale);
-    if(julia_element(grid_x[i], grid_y[i], 1000) == 1000){
-      poi[i] = 1;
+
+    float _x = (float)(-1.5 + current_x * scale);
+    float _y = (float)(-1.5 + (i % 100) * scale);
+
+    if(julia_element(_x, _y, julia_lim) == julia_lim){
+      julia_set_x[i] = _x;
+      julia_set_y[i] = _y;
       count++;
     }else{
-      poi[i] = 0;
-    }
-  }
-
-  //generate julia subset of grid
-  float * julia_set_x = malloc(count * sizeof(float));
-  float * julia_set_y = malloc(count * sizeof(float));
-
-  for(int i = 0; i < POINTS; i++){
-    if(poi[i] == 1 && i < count){
-      julia_set_x[i] = grid_x[i];
-      julia_set_y[i] = grid_y[i];
+      julia_set_x[i] = 0.0;
+      julia_set_y[i] = 0.0;
     }
   }
 
@@ -87,10 +81,8 @@ int main(void){
   name("R-axis", "x");
   name("I-axis", "y");
 
-  qplsca(julia_set_x, julia_set_y, count);
+  qplsca(julia_set_x, julia_set_y, 5 * count);
 
-  free(grid_x);
-  free(grid_y);
   free(julia_set_x);
   free(julia_set_y);
   return 0;
