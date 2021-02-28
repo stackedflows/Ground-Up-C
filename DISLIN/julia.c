@@ -3,10 +3,9 @@
 #include <math.h>
 #include "dislin.h"
 
-//generate jula set data for particular constant
-static long double const_x;
-static long double const_y;
-static long double r_lim;
+static long double constant_x;
+static long double constant_y;
+static long double r_limit;
 
 long double julia_x(long double x, long double y){
   return x * x - y * y;
@@ -20,32 +19,30 @@ long double _abs(long double x, long double y){
 }
 
 int julia_element(float x, float y, int max_steps){
-  long double iter_x = (long double)x;
-  long double iter_y = (long double)y;
+  long double current_iteration_x = (long double)x;
+  long double current_iteration_y = (long double)y;
   int i = 0;
-  while(i < max_steps && _abs(iter_x, iter_y) < r_lim){
-    long double x_temp = julia_x(iter_x, iter_y);
-    iter_y = julia_y(iter_x, iter_y) + const_y;
-    iter_x = x_temp + const_x;
+  while(i < max_steps && _abs(current_iteration_x, current_iteration_y) < r_limit){
+    long double x_temporary = julia_x(current_iteration_x, current_iteration_y);
+    current_iteration_y = julia_y(current_iteration_x, current_iteration_y) + constant_y;
+    current_iteration_x = x_temporary + constant_x;
     i++;
   }
   return i;
 }
 
 int main(void){
-  //constants
-  const_x = -0.61803398875; //1 - golden ratio
-  const_y = 0.0;
-  long double radius = _abs(const_x, const_y);
-  r_lim = 2; //solves r_lim(r_lim - 1) = radius
 
-  static int julia_lim = 1000;
+  constant_x =  -0.61803398875;
+  constant_y = 0.0;
+  long double radius = _abs(constant_x, constant_y);
+  r_limit = 2.0;
 
-  //establish grid and scale factor
+  static int julia_limit = 1000;
+
   int POINTS = 10000;
   long double scale = 0.04;
 
-  //generate julia subset of grid
   float * julia_set_x = malloc(POINTS * sizeof(float));
   float * julia_set_y = malloc(POINTS * sizeof(float));
 
@@ -56,10 +53,10 @@ int main(void){
       current_x++;
     }
 
-    float _x = (float)(-2 + current_x * scale);
-    float _y = (float)(-2 + (i % 100) * scale);
+    float _x = (float)(-2.0 + current_x * scale);
+    float _y = (float)(-2.0 + (i % 100) * scale);
 
-    if(julia_element(_x, _y, julia_lim) == julia_lim){
+    if(julia_element(_x, _y, julia_limit) == julia_limit){
       julia_set_x[i] = _x;
       julia_set_y[i] = _y;
       count++;
@@ -69,17 +66,19 @@ int main(void){
     }
   }
 
-  //draw julia set
   scrmod("revers");
   setpag("da4l");
   metafl("cons");
   disini();
 
-  titlin("Julia Set", 1);
-  titlin("F(Z) = Z*Z - 0.61803398875", 3);
+  titlin("Mandlebrot", 1);
+  titlin("F(Z) = Z*Z - phi", 3);
 
   name("R-axis", "x");
   name("I-axis", "y");
+
+  marker(21);
+  hsymbl(20);
 
   qplsca(julia_set_x, julia_set_y, 6 * count);
 
