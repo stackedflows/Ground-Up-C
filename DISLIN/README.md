@@ -10,4 +10,4 @@ still some kinks to iron out . . .
 
 # e8.c 
 
-. . . 
+In progress. . . 
