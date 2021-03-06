@@ -13,14 +13,6 @@ float * rings_y;
 int * connections;
 
 int main(void){
-
-  scrmod("revers");
-  setpag("da4l");
-  metafl("cons");
-  disini();
-
-  graf(-10, 10, -10, 1, -10, 10, -10, 1);
-
   distances = malloc(8 * sizeof(float));
   for(int i = 0; i < 8; i++){
     distances[i] = (float)(i + 1);
@@ -59,8 +51,16 @@ int main(void){
   connections = malloc(240 * 240 * sizeof(int));
 
   for(int i = 0; i < 240 * 240; i++){
-    // designate connections[i] = 0 or 1;
+    // designate connections[i] = 0 if not connection, or 1 if there is a connection;
+    // need to research basic representation theory https://math.stackexchange.com/questions/1868362/table-of-e8-representations
   }
+
+  scrmod("revers");
+  setpag("da4l");
+  metafl("cons");
+  disini();
+
+  graf(-10, 10, -10, 1, -10, 10, -10, 1);
 
   for(int i = 0; i < 240; i++){
     for(int j = 1; j < 240; j++){
