@@ -10,6 +10,8 @@ float * distances;
 float * rings_x;
 float * rings_y;
 
+float * connections;
+
 int main(void){
 
   scrmod("revers");
@@ -18,6 +20,8 @@ int main(void){
   disini();
 
   graf(-10, 10, -10, 1, -10, 10, -10, 1);
+  
+  connections = malloc(240 * 240 * sizeof(float));
 
   distances = malloc(8 * sizeof(float));
   for(int i = 0; i < 8; i++){
