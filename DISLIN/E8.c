@@ -10,7 +10,7 @@ float * distances;
 float * rings_x;
 float * rings_y;
 
-float * connections;
+int * connections;
 
 int main(void){
 
@@ -20,8 +20,6 @@ int main(void){
   disini();
 
   graf(-10, 10, -10, 1, -10, 10, -10, 1);
-  
-  connections = malloc(240 * 240 * sizeof(float));
 
   distances = malloc(8 * sizeof(float));
   for(int i = 0; i < 8; i++){
@@ -34,35 +32,39 @@ int main(void){
     if(i < 30){
       rings_x[i] = distances[0] * cos(PI / 15 * i);
       rings_y[i] = distances[0] * sin(PI / 15 * i);
-      if(i > 0)rline(rings_x[i - 1], rings_y[i - 1], rings_x[i], rings_y[i]);
     }else if(i >= 30 && i < 2 * 30){
       rings_x[i] = distances[1] * cos(PI / 15 * (i % 30) + OFFSET);
       rings_y[i] = distances[1] * sin(PI / 15 * (i % 30) + OFFSET);
-      if(i >= 31)rline(rings_x[i - 1], rings_y[i - 1], rings_x[i], rings_y[i]);
     }else if(i >= 2 * 30 && i < 3 * 30){
       rings_x[i] = distances[2] * cos(PI / 15 * (i % 30));
       rings_y[i] = distances[2] * sin(PI / 15 * (i % 30));
-      if(i >= 61)rline(rings_x[i - 1], rings_y[i - 1], rings_x[i], rings_y[i]);
     }else if(i >= 3 * 30 && i < 4 * 30){
       rings_x[i] = distances[3] * cos(PI / 15 * (i % 30) + OFFSET);
       rings_y[i] = distances[3] * sin(PI / 15 * (i % 30) + OFFSET);
-      if(i >= 91)rline(rings_x[i - 1], rings_y[i - 1], rings_x[i], rings_y[i]);
     }else if(i >= 4 * 30 && i < 5 * 30){
       rings_x[i] = distances[4] * cos(PI / 15 * (i % 30));
       rings_y[i] = distances[4] * sin(PI / 15 * (i % 30));
-      if(i >= 121)rline(rings_x[i - 1], rings_y[i - 1], rings_x[i], rings_y[i]);
     }else if(i >= 5 * 30 && i < 6 * 30){
       rings_x[i] = distances[5] * cos(PI / 15 * (i % 30) + OFFSET);
       rings_y[i] = distances[5] * sin(PI / 15 * (i % 30) + OFFSET);
-      if(i >= 151)rline(rings_x[i - 1], rings_y[i - 1], rings_x[i], rings_y[i]);
     }else if(i >= 6 * 30 && i < 7 * 30){
       rings_x[i] = distances[6] * cos(PI / 15 * (i % 30));
       rings_y[i] = distances[6] * sin(PI / 15 * (i % 30));
-      if(i >= 181)rline(rings_x[i - 1], rings_y[i - 1], rings_x[i], rings_y[i]);
     }else{
       rings_x[i] = distances[7] * cos(PI / 15 * (i % 30) + OFFSET);
       rings_y[i] = distances[7] * sin(PI / 15 * (i % 30) + OFFSET);
-      if(i >= 211)rline(rings_x[i - 1], rings_y[i - 1], rings_x[i], rings_y[i]);
+    }
+  }
+
+  connections = malloc(240 * 240 * sizeof(int));
+
+  for(int i = 0; i < 240 * 240; i++){
+    // designate connections[i] = 0 or 1;
+  }
+
+  for(int i = 0; i < 240; i++){
+    for(int j = 1; j < 240; j++){
+      if(connections[i * 240 + j] == 1)rline(rings_x[i], rings_y[i], rings_x[j], rings_y[j]);
     }
   }
 
