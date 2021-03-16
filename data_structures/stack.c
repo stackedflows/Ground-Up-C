@@ -29,6 +29,7 @@ int pop(int count){
 			stack[i] = stack[i + 1];
 		}
 		count--;
+		return pop;
 	}
 }
 
