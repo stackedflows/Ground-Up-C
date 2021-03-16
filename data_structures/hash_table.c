@@ -27,7 +27,6 @@ struct hash_obj * delete(struct hash_obj * item){
 
 }
 
-
 int main(void){
 	
 	hash_table = malloc(SIZE * sizeof(struct hash_obj));
