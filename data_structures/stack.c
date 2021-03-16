@@ -28,6 +28,7 @@ int pop(int count){
 		for(i = 0; i < count; i++){
 			stack[i] = stack[i + 1];
 		}
+		count--;
 	}
 }
 
