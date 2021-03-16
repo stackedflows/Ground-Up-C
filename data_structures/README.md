@@ -1,3 +1,5 @@
+[Big O data](https://www.bigocheatsheet.com/)
+
 # doubly_linked_list.c
 
 time-complexity:
