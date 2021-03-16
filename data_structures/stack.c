@@ -37,5 +37,6 @@ int main(void){
 	count = 0;
 	stack = malloc(SIZE * sizeof(int));
 
+	free(stack);
 	return 0;
 }
