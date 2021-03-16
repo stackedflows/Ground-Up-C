@@ -8,7 +8,7 @@ struct hash_obj{
 	int key;
 };
 
-struct * hash_table;
+struct hash_obj * hash_table;
 
 int hash_func(int key){
 	
@@ -30,7 +30,7 @@ struct hash_obj * delete(struct hash_obj * item){
 
 int main(void){
 	
-	hash_table = malloc(SIZE * sizeof(struct));
+	hash_table = malloc(SIZE * sizeof(struct hash_obj));
 	
 	return 0;
 }
