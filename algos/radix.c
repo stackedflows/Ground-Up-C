@@ -1,37 +1,52 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define SIZE_queue
-#define SIZE_list
+#define SIZEQ 10
+#define SIZEL 10
 
-int ** Queues;
+int ** queues;
 
-float max_digit;
-
-int num_digits(int digit){
-	int digit = digit;
-	dig_count = -1;
-	while(digit > 1){
-		digit = digit / 10;
-		dig_count++;
-	}
+int * bubble(int * queue, int new_item){
+  for(int i = 0; i < SIZEL; i++){
+    int temp;
+    if(new_item < queue[i]){
+      temp = queue[i];
+      queue[i] = new_item;
+      for(int ii = 0; ii < i; ii++){
+        queue[SIZEL - ii] = queue[SIZEL - ii - 1];
+      }
+    }else{
+      queue[SIZEL] = new_item;
+    }
+  }
+  return queue;
 }
 
-void insert(int * queue, int item){
-	
+int max_digits(int num){
+  int count = 0;
+  float num_f = (float)num;
+  while (num_f > 1) {
+    count++;
+    num_f = num_f / 10.0;
+  }
+  return count;
+}
+
+int get_max(int * unsorted){
+  int max = unsorted[0];
+  for(int i = 0; i < SIZEL; i++){
+    int digits = max_digits(unsorted[i]);
+    if(digits < max){
+      current_max = digits;
+    }
+  }
+  return max;
 }
 
 int main(void){
-	int * unsorted = malloc(SIZE_list * sizeof(int));
-	Queues = malloc(SIZE_queue * sizeof(SIZE_list));
+  int * to_sort = malloc(SIZEL * sizeof(int));
+  int num_digits = get_max(to_sort);
 
-	for(int i = 0; i < unsorted; i++){
-		for(ii = 1; ii <= 10; i++){
-			int dig_count = num_digits(unsorted[i]);
-			if(unsorted[i] % ii == 0 && dig_count >= ii){
-				insert(Queues[ii], unsorted[i]);
-			} 
-		}
-	}
-	//not finished
+
+  return 0;
 }
