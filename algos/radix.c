@@ -47,6 +47,6 @@ int main(void){
   int * to_sort = malloc(SIZEL * sizeof(int));
   int num_digits = get_max(to_sort);
 
-
+  free(to_sort);
   return 0;
 }
