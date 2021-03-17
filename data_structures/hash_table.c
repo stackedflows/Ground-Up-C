@@ -11,7 +11,6 @@ struct hash_obj{
 struct hash_obj * hash_table;
 
 int hash_func(int key){
-	
 	return key % SIZE;
 }
 
