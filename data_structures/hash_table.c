@@ -17,6 +17,7 @@ int hash_func(int key){
 
 struct hash_obj * search(int key){
 	for(int i = 0; i < SIZE; i++){
+		i %= SIZE;
 		if(hash_table[i] -> key == key){
 			return 	hash_table[i];
 		}else{
@@ -34,6 +35,7 @@ void insert(int key, int data){
 	int code = hash_func(key);
 	
 	for(int i = 0; i < SIZE; i++){
+		i %= SIZE;
 		if(hash_table[i] -> key == code && hash_table[i] == NULL){
 			hash_table[i] = hash_obj;	
 		}else{
@@ -50,6 +52,7 @@ struct hash_obj * delete(struct hash_obj * item){
 	struct hash_obj * hash_dummy = (struct hash_obj *)malloc(sizeof(struct hash_obj));
 	
 	for(int i = 0; i < SIZE; i++){
+		i %= SIZE;
 		if(hash_table[i] -> key = index){
 			struct hash_obj * hash_temp = hash_table[index];
 			
