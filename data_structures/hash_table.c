@@ -36,5 +36,5 @@ int main(void){
 	hash_table = malloc(SIZE * sizeof(struct hash_obj));
 	//do stuff
 	free(hash_table);
-;	return 0;
+	return 0;
 }
