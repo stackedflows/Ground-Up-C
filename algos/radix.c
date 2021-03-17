@@ -17,6 +17,10 @@ int num_digits(int digit){
 	}
 }
 
+void insert(int * queue, int item){
+	
+}
+
 int main(void){
 	int * unsorted = malloc(SIZE_list * sizeof(int));
 	Queues = malloc(SIZE_queue * sizeof(SIZE_list));
