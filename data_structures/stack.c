@@ -16,12 +16,13 @@ void push(int current, int count){
 			stack[count - i] = stack[count - i - 1];
 		}
 		stack[0] = current;
+		return;
 	}
 }
 
 int pop(int count){
 	if(count == 0){
-		return;
+		return 0;
 	}
 	else{
 		int pop = stack[0];
