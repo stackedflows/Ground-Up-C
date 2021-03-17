@@ -29,5 +29,5 @@ int main(void){
 			} 
 		}
 	}
-	//to be extended
+	//not finished
 }
