@@ -24,7 +24,7 @@ int main(void){
 	for(int i = 0; i < unsorted; i++){
 		for(ii = 1; ii <= 10; i++){
 			int dig_count = num_digits(unsorted[i]);
-			if(unsorted[i] % ii == 0 && dig_count > ii){
+			if(unsorted[i] % ii == 0 && dig_count >= ii){
 				insert(Queues[ii], unsorted[i]);
 			} 
 		}
