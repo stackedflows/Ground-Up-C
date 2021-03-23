@@ -1,3 +1,4 @@
+// needs to be adapted once other programs are in order
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
