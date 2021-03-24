@@ -4,7 +4,7 @@
 #include <math.h>
 #define DIM 8
 
-int * count;
+int count = 0;
 
 int shouldSwap(float str[], int start, int curr)
 {
@@ -14,59 +14,67 @@ int shouldSwap(float str[], int start, int curr)
     return 1;
 }
 
-void findPermutations(float str[], int index, int n)
+void permutations(float base[], int index, int n, float target[][8])
 {
     if (index >= n) {
         for(int i = 0; i < n; i++){
-          printf("%f ", str[i]);
+          target[count][i] = base[i];
         }
-        count[0]++;
+        count++;
         return;
     }
-    printf("\n");
+
     for (int i = index; i < n; i++) {
-        int check = shouldSwap(str, index, i);
+        int check = shouldSwap(base, index, i);
         if (check) {
-            int temp_0 = str[index];
-            int temp_1 = str[i];
-            str[index] = temp_1;
-            str[i] = temp_0;
-            findPermutations(str, index + 1, n);
-            int temp_2 = str[index];
-            int temp_3 = str[i];
-            str[index] = temp_3;
-            str[i] = temp_2;
+            int temp_0 = base[index];
+            int temp_1 = base[i];
+            base[index] = temp_1;
+            base[i] = temp_0;
+            permutations(base, index + 1, n, target);
+            int temp_2 = base[index];
+            int temp_3 = base[i];
+            base[index] = temp_3;
+            base[i] = temp_2;
         }
     }
 }
 
-
 int main(void){
 
-  count = malloc(sizeof(int));
-  count[0] = 0;
-
+  count = 0;
   float b1[DIM] = {2,2,0,0,0,0,0,0};
+  float type_b1[28][8];
+  permutations(b1, 0, 8, type_b1);
+
+
+  count = 0;
   float b2[DIM] = {2,-2,0,0,0,0,0,0};
+  float type_b2[56][8];
+  permutations(b2, 0, 8, type_b2);
+
+  count = 0;
   float b3[DIM] = {-2,-2,0,0,0,0,0,0};
+  float type_b3[28][8];
+  permutations(b3, 0, 8, type_b3);
 
-  float ** type_b1 = malloc(28 * sizeof(float *));
-  float ** type_b2 = malloc(56 * sizeof(float *));
-  float ** type_b3 = malloc(56 * sizeof(float *));
-
+  count = 0;
   float b4[DIM] = {1,1,-1,-1,-1,-1,-1,-1};
+  float type_b4[28][8];
+  permutations(b4, 0, 8, type_b4);
+
+  count = 0;
   float b5[DIM] = {1,1,1,1,-1,-1,-1,-1};
+  float type_b5[70][8];
+  permutations(b5, 0, 8, type_b5);
+
+  count = 0;
   float b6[DIM] = {1,1,1,1,1,1,-1,-1};
+  float type_b6[28][8];
+  permutations(b6, 0, 8, type_b6);
 
-  float ** type_b4 = malloc(28 * sizeof(float *));
-  float ** type_b5 = malloc(56 * sizeof(float *));
-  float ** type_b6 = malloc(28 * sizeof(float *));
+  float type_b7[DIM] = {1,1,1,1,1,1,1,1};
+  float type_b8[DIM] = {-1,-1,-1,-1,-1,-1,-1,-1};
 
-  float b7[DIM] = {1,1,1,1,1,1,1,1};
-  float b8[DIM] = {-1,-1,-1,-1,-1,-1,-1,-1};
-
-  findPermutations(b1, 0, 8);
-
-  printf("\n%d\n", count[0]);
   return 0;
 }
