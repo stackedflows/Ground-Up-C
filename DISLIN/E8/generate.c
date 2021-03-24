@@ -4,31 +4,47 @@
 #include <math.h>
 #define DIM 8
 
-//heaps algorithm for total permutations
-void heaps_permute(float * array, int size, int n){
-  if(size == 1){
-    for(int i = 0; i < n; i++){
-      printf("%f ",array[i]);
-    }
-  }
-  printf("\n");
-  for(int i = 0; i < size; i++){
-    heaps_permute(array, size - 1, n);
-    if(size % 2 == 0){
-      float temp_0 = array[0];
-      float temp_1 = array[size - 1];
-      array[0] = temp_1;
-      array[size - 1] = temp_0;
-    }else{
-      float temp_2 = array[i];
-      float temp_3 = array[size - 1];
-      array[i] = temp_3;
-      array[size - 1] = temp_2;
-    }
-  }
+int * count;
+
+int shouldSwap(float str[], int start, int curr)
+{
+    for (int i = start; i < curr; i++)
+        if (str[i] == str[curr])
+            return 0;
+    return 1;
 }
 
+void findPermutations(float str[], int index, int n)
+{
+    if (index >= n) {
+        for(int i = 0; i < n; i++){
+          printf("%f ", str[i]);
+        }
+        count[0]++;
+        return;
+    }
+    printf("\n");
+    for (int i = index; i < n; i++) {
+        int check = shouldSwap(str, index, i);
+        if (check) {
+            int temp_0 = str[index];
+            int temp_1 = str[i];
+            str[index] = temp_1;
+            str[i] = temp_0;
+            findPermutations(str, index + 1, n);
+            int temp_2 = str[index];
+            int temp_3 = str[i];
+            str[index] = temp_3;
+            str[i] = temp_2;
+        }
+    }
+}
+
+
 int main(void){
+
+  count = malloc(sizeof(int));
+  count[0] = 0;
 
   float b1[DIM] = {2,2,0,0,0,0,0,0};
   float b2[DIM] = {2,-2,0,0,0,0,0,0};
@@ -49,7 +65,8 @@ int main(void){
   float b7[DIM] = {1,1,1,1,1,1,1,1};
   float b8[DIM] = {-1,-1,-1,-1,-1,-1,-1,-1};
 
-  heaps_permute(b1, 8, 8);
+  findPermutations(b1, 0, 8);
 
+  printf("\n%d\n", count[0]);
   return 0;
 }
