@@ -1,7 +1,7 @@
 
 # draw.c
 
-Given a set of points and a binary string, this algorithm draws to a widget a graph.
+Given a set of points and a binary string, this algorithm draws a graph to a widget.
 
 # functions.c
 
