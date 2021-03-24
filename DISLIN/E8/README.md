@@ -1,5 +1,5 @@
 
-# e8.c
+# draw.c
 
 Given a set of points and a binary string, this algorithm draws to a widget a graph.
 
