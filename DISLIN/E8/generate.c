@@ -4,8 +4,28 @@
 #include <math.h>
 #define DIM 8
 
-void permute(float * array){
-  
+//heaps algorithm for total permutations
+void heaps_permute(float * array, int size, int n){
+  if(size == 1){
+    for(int i = 0; i < n; i++){
+      printf("%f ",array[i]);
+    }
+  }
+  printf("\n");
+  for(int i = 0; i < size; i++){
+    heaps_permute(array, size - 1, n);
+    if(size % 2 == 0){
+      float temp_0 = array[0];
+      float temp_1 = array[size - 1];
+      array[0] = temp_1;
+      array[size - 1] = temp_0;
+    }else{
+      float temp_2 = array[i];
+      float temp_3 = array[size - 1];
+      array[i] = temp_3;
+      array[size - 1] = temp_2;
+    }
+  }
 }
 
 int main(void){
@@ -28,6 +48,8 @@ int main(void){
 
   float b7[DIM] = {1,1,1,1,1,1,1,1};
   float b8[DIM] = {-1,-1,-1,-1,-1,-1,-1,-1};
+
+  heaps_permute(b1, 8, 8);
 
   return 0;
 }
