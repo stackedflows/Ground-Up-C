@@ -144,22 +144,10 @@ int main(void){
 
   float * current_distances = malloc(240 * sizeof(float));
 
-  int count_n = 0;
-
   for(int i = 0; i < 240; i++){
-    float dist = inner_product(root_system[0], root_system[i]);
-    //printf("%f\n", dist);
-    if(dist == 2)count_n++;
+    current_distances[i] = inner_product(root_system[0], root_system[i]);
   }
 
-  float inn = inner_product(type_b7, type_b7);
-  printf("%f\n", inn);
-
-  printf("\n");
-
-  printf("%d", count_n);
-
-  printf("\n");
 
 
   return 0;
