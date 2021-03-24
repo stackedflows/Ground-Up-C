@@ -13,3 +13,7 @@ Given a set of vectors, this algorithm find the group that share a minimum dista
 # permutations.c
 
 Given an array of numbers, this algorithm returns all the possible unique permutations of the array
+
+Note that: in the so-called even coordinate system, E8 is given as the set of all vectors in R8 with length squared equal to 2 such that coordinates are either all integers or all half-integers and the sum of the coordinates is even.
+
+This means we can hardcode a set of 8 basis vectors, and let the fun begin.
