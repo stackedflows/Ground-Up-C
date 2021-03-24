@@ -148,7 +148,5 @@ int main(void){
     current_distances[i] = inner_product(root_system[0], root_system[i]);
   }
 
-
-
   return 0;
 }
