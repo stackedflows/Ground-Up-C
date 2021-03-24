@@ -91,7 +91,7 @@ int main(void){
   float type_b1[28][8];
   permutations(b1, 0, 8, type_b1);
   printf("\n");
-  
+
   count = 0;
   float b2[8] = {1,-1,0,0,0,0,0,0};
   float type_b2[56][8];
@@ -142,11 +142,24 @@ int main(void){
 
   //
 
-  float * current_distances = malloc(240 * sizeof(float));
+  printf("\n");
+
+  printf("\n");
 
   for(int i = 0; i < 240; i++){
-    current_distances[i] = inner_product(root_system[0], root_system[i]);
+    float * current_distances = malloc(240 * sizeof(float));
+    int current = i;
+    for(int ii = 0; ii < 240; ii++){
+      if(ii == current){continue;}
+      current_distances[ii] = inner_product(root_system[current], root_system[ii]);
+    }
+    float m = min(current_distances);
+    printf("%f\n", m);
+    free(current_distances);
   }
+
+  printf("\n");
+
 
   return 0;
 }
