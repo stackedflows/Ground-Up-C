@@ -80,27 +80,21 @@ int main(void){
   count = 0;
   float b1[8] = {1,1,0,0,0,0,0,0};
   permutations(b1, 0, 8);
-  printf("\n");
 
   float b2[8] = {1,-1,0,0,0,0,0,0};
   permutations(b2, 0, 8);
-  printf("\n");
 
   float b3[8] = {-1,-1,0,0,0,0,0,0};
   permutations(b3, 0, 8);
-  printf("\n");
 
   float b4[8] = {0.5,0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5};
   permutations(b4, 0, 8);
-  printf("\n");
 
   float b5[8] = {0.5,0.5,0.5,0.5,-0.5,-0.5,-0.5,-0.5};
   permutations(b5, 0, 8);
-  printf("\n");
 
   float b6[8] = {0.5,0.5,0.5,0.5,0.5,0.5,-0.5,-0.5};
   permutations(b6, 0, 8);
-  printf("\n");
 
   float b7[8] = {0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5};
   float b8[8] = {-0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5};
@@ -109,8 +103,6 @@ int main(void){
     root_sys[238][i] = b7[i];
     root_sys[239][i] = b8[i];
   }
-
-  //
 
   printf("\n");
 
@@ -130,7 +122,6 @@ int main(void){
         c_count++;
       }else{distance_matrix[i][ii] == 0;};
     }
-    printf("%d\n", c_count);
   }
 
   return 0;
