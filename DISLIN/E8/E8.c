@@ -122,6 +122,7 @@ int main(void){
         c_count++;
       }else{distance_matrix[i][ii] == 0;};
     }
+    printf("%d %d\n", c_count, i);
   }
 
   return 0;
