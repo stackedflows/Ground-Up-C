@@ -1,4 +1,4 @@
-//gcc combo.c -o c
+//gcc e8.c -o e
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
