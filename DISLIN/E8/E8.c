@@ -44,13 +44,13 @@ void permutations(float base[], int index, int n)
 
 // matrix operations
 
-float mult_res[8][8];
+float r_c[8][8];
 void mat_multiply(float mat1[][8], float mat2[][8]){
   for (int i = 0; i < 8; i++){
       for (int ii = 0; ii < 8; ii++){
-          mult_res[i][ii] = 0;
+          r_c[i][ii] = 0;
           for (int iii = 0; iii < 8; iii++){
-            mult_res[i][ii] += mat1[i][iii] * mat2[iii][ii];
+            r_c[i][ii] += mat1[i][iii] * mat2[iii][ii];
           }
       }
   }
@@ -119,10 +119,10 @@ int main(void){
     }
   }
 
-  float r_c[8][8];
+  float init[8][8];
   for(int i = 0; i < 8; i++){
     for(int ii = 0; ii < 8; ii++){
-      r_c[i][ii] = weyl_group[0][i][ii];
+      init[i][ii] = weyl_group[0][i][ii];
     }
   }
 
@@ -133,17 +133,20 @@ int main(void){
         load[i][ii] = weyl_group[i][i][ii];
       }
     }
-    mat_multiply(r_c, load);
+    mat_multiply(init, load);
   }
 
   for(int i = 0; i < 8; i++){
     for(int ii = 0; ii < 8; ii++){
-      printf("%f ", mult_res[i][ii]);
+      printf("%f ", r_c[i][ii]);
     }
     printf("\n");
   }
 
   //gcc combo.c -o c
+
+  float eig_x = cos(0.209440); //cos(PI/15)
+  float eig_y = sin(0.209440); //cos(PI/15)
 
   return 0;
 }
