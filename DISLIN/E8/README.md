@@ -1,6 +1,6 @@
 # e8.c
 
-A method that generates the E8 lie group and then performs a coxeter slice on it.
+A method that generates the E8 lie group, performs a coxeter slice on it, and outputs the resulting object. 
 
 # eig.py
 
