@@ -110,10 +110,10 @@ int main(void){
     for(int ii = 0; ii < 8; ii++){
       for(int iii = 0; iii < 8; iii++){
         if(ii == iii){
-          weyl_group[i][ii][iii] = 1 - sqrt(2) * base_sys[i][ii] * base_sys[i][ii];
+          weyl_group[i][ii][iii] = 1 - sqrt(2) * base_sys[i][ii] * base_sys[i][iii];
         }
         else{
-          weyl_group[i][ii][iii] = -sqrt(2) * base_sys[i][ii] * base_sys[i][ii];
+          weyl_group[i][ii][iii] = -sqrt(2) * base_sys[i][ii] * base_sys[i][iii];
         }
       }
     }
@@ -136,7 +136,12 @@ int main(void){
     mat_multiply(r_c, load);
   }
 
-  
+  for(int i = 0; i < 8; i++){
+    for(int ii = 0; ii < 8; ii++){
+      printf("%f ", mult_res[i][ii]);
+    }
+    printf("\n");
+  }
 
   //gcc combo.c -o c
 
