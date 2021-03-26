@@ -123,6 +123,8 @@ int main(void){
     rings_x[i] = inner_product_plus(re_eigvect, current_point);
     rings_y[i] = inner_product_plus(im_eigvect, current_point);
   }
+    
+  //graph the system
 
   scrmod("revers");
   setpag("da4l");
