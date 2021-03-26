@@ -18,4 +18,4 @@ Note that: in the so-called even coordinate system, E8 is given as the set of al
 
 This means we can hardcode a set of 8 basis vectors, and let the fun begin.
 
-![item]}(https://user-images.githubusercontent.com/73109076/112700770-c7931880-8e86-11eb-9432-16becd89b825.png)
+![2021-03-26 (2)](https://user-images.githubusercontent.com/73109076/112700770-c7931880-8e86-11eb-9432-16becd89b825.png)
