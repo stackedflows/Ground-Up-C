@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "dislin.h"
 
 // method to generate all permutations of a set with repeated elements: the root system
 float root_sys[240][8];
@@ -42,14 +43,19 @@ void permutations(float base[], int index, int n)
     }
 }
 
-// matrix operations
-
 // function to list all distances from one node to others
 
 float inner_product(float * vect_0, float * vect_1){
   float sum = 0;
   for(int i = 0; i < 8; i++){
     sum = sum + ((vect_0[i] - vect_1[i]) * (vect_0[i] - vect_1[i]));
+  }return sum;
+}
+
+float inner_product_plus(float * vect_0, float * vect_1){
+  float sum = 0;
+  for(int i = 0; i < 8; i++){
+    sum = sum + ((vect_0[i] + vect_1[i]) * (vect_0[i] + vect_1[i]));
   }return sum;
 }
 
@@ -90,8 +96,50 @@ int main(void){
     }
   }
 
+  //use eig.py to calculate eigenvectors of root system
 
-  //gcc combo.c -o c
+  float im_eigvect[8] = {
+    -3.27747995e-01, -02+3.27747995e-01,
+    8.42289350e-02, -8.42289350e-02,
+    2.49005596e-01,  2.49005596e-01,
+    3.27747995e-01, 3.27747995e-01};
+
+  float re_eigvect[8] = {
+    -8.42289350e-02, -8.42289350e-02,
+    -2.71077389e-01, -2.71077389e-01,
+    2.71077389e-01, 2.71077389e-01,
+    -2.49005596e-01, -2.49005596e-01};
+
+  float zero[8] = {0,0,0,0,0,0,0,0};
+
+  float rings_x[240];
+  float rings_y[240];
+
+  for(int i = 0; i < 240; i++){
+    float current_point[8];
+    for(int ii = 0; ii < 8; ii++){
+      current_point[ii] = root_sys[i][ii];
+    }
+    rings_x[i] = inner_product_plus(re_eigvect, current_point);
+    rings_y[i] = inner_product_plus(im_eigvect, current_point);
+  }
+
+  scrmod("revers");
+  setpag("da4l");
+  metafl("cons");
+  disini();
+
+  graf(-10, 10, -10, 1, -10, 10, -10, 1);
+
+  titlin("E8", 1);
+
+  name("R-axis", "x");
+  name("I-axis", "y");
+
+  marker(21);
+  hsymbl(15);
+
+  qplsca(rings_x, rings_y, 30 * 8);
 
   return 0;
 }
