@@ -88,7 +88,7 @@ int main(void){
     permutations(base_sys[i],0,8);
   }
 
-  //calculating distances between all roots, outputting correspondence matrix
+ //calculating distances between all roots, outputting correspondence matrix
 
   int distance_matrix[240][240];
 
