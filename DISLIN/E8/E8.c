@@ -3,7 +3,8 @@
 #include <stdlib.h>
 #include <math.h>
 
-// method to generate all permutations of a set with repeated elements
+// method to generate all permutations of a set with repeated elements: the root system
+float root_sys[240][8];
 
 int count = 0;
 
@@ -15,8 +16,6 @@ int shouldSwap(float base[], int start, int curr)
     return 1;
 }
 
-float root_sys[240][8];
-
 void permutations(float base[], int index, int n)
 {
     if (index >= n) {
@@ -24,7 +23,6 @@ void permutations(float base[], int index, int n)
           root_sys[count][i] = base[i];
         }
         count++;
-        printf("\n");
         return;
     }
 
@@ -44,6 +42,20 @@ void permutations(float base[], int index, int n)
     }
 }
 
+// matrix operations
+
+float mult_res[8][8];
+void mat_multiply(float mat1[][8], float mat2[][8]){
+  for (int i = 0; i < 8; i++){
+      for (int ii = 0; ii < 8; ii++){
+          mult_res[i][ii] = 0;
+          for (int iii = 0; iii < 8; iii++){
+            mult_res[i][ii] += mat1[i][iii] * mat2[iii][ii];
+          }
+      }
+  }
+}
+
 // function to list all distances from one node to others
 
 float inner_product(float * vect_0, float * vect_1){
@@ -53,77 +65,80 @@ float inner_product(float * vect_0, float * vect_1){
   }return sum;
 }
 
-float min(float * array){
-    float curr = 100;
-    for(int i = 0; i < 240; i++){
-      if(array[i] < curr && array[i] != 0){
-        curr = array[i];
-      }
-    }return curr;
-}
-
 //
-
-void print_p(float arr[][8], int size){
-  for(int i = 0; i < size; i++){
-    for(int ii = 0; ii < 8; ii++){
-      printf("%f ", arr[i][ii]);
-    }
-    printf("\n");
-  }
-}
 
 int main(void){
 
   // base vector permutations of E8 root system
 
+  float base_sys[8][8] = {
+    {1,1,0,0,0,0,0,0},
+    {1,-1,0,0,0,0,0,0},
+    {-1,-1,0,0,0,0,0,0},
+    {0.5,0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5},
+    {0.5,0.5,0.5,0.5,-0.5,-0.5,-0.5,-0.5},
+    {0.5,0.5,0.5,0.5,0.5,0.5,-0.5,-0.5},
+    {0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5},
+    {-0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5}
+  };
+
   count = 0;
-  float b1[8] = {1,1,0,0,0,0,0,0};
-  permutations(b1, 0, 8);
-
-  float b2[8] = {1,-1,0,0,0,0,0,0};
-  permutations(b2, 0, 8);
-
-  float b3[8] = {-1,-1,0,0,0,0,0,0};
-  permutations(b3, 0, 8);
-
-  float b4[8] = {0.5,0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5};
-  permutations(b4, 0, 8);
-
-  float b5[8] = {0.5,0.5,0.5,0.5,-0.5,-0.5,-0.5,-0.5};
-  permutations(b5, 0, 8);
-
-  float b6[8] = {0.5,0.5,0.5,0.5,0.5,0.5,-0.5,-0.5};
-  permutations(b6, 0, 8);
-
-  float b7[8] = {0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5};
-  float b8[8] = {-0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5};
 
   for(int i = 0; i < 8; i++){
-    root_sys[238][i] = b7[i];
-    root_sys[239][i] = b8[i];
+    permutations(base_sys[i],0,8);
   }
 
-  printf("\n");
-
-  //gcc combo.c -o c
-
-  printf("\n");
+  //calculating distances between all roots, outputting correspondence matrix
 
   int distance_matrix[240][240];
 
   for(int i = 0; i < 240; i++){
-    int c_count = 0;
     int dist_m = 100;
     for(int ii = 0; ii < 240; ii++){
       float dist = (int)inner_product(root_sys[i], root_sys[ii]);
-      if(dist == 2){
+      if(dist == 2){ //connecting distance in E8
         distance_matrix[i][ii] = 1;
-        c_count++;
       }else{distance_matrix[i][ii] == 0;};
     }
-    printf("%d %d\n", c_count, i);
   }
+
+  // calculating r_c
+
+  float weyl_group[8][8][8];
+
+  for(int i = 0; i < 8; i++){
+    for(int ii = 0; ii < 8; ii++){
+      for(int iii = 0; iii < 8; iii++){
+        if(ii == iii){
+          weyl_group[i][ii][iii] = 1 - sqrt(2) * base_sys[i][ii] * base_sys[i][ii];
+        }
+        else{
+          weyl_group[i][ii][iii] = -sqrt(2) * base_sys[i][ii] * base_sys[i][ii];
+        }
+      }
+    }
+  }
+
+  float r_c[8][8];
+  for(int i = 0; i < 8; i++){
+    for(int ii = 0; ii < 8; ii++){
+      r_c[i][ii] = weyl_group[0][i][ii];
+    }
+  }
+
+  float load[8][8];
+  for(int i = 1; i < 8; i++){
+    for(int ii = 0; ii < 8; ii++){
+      for(int iii = 0; iii < 8; iii++){
+        load[i][ii] = weyl_group[i][i][ii];
+      }
+    }
+    mat_multiply(r_c, load);
+  }
+
+  
+
+  //gcc combo.c -o c
 
   return 0;
 }
