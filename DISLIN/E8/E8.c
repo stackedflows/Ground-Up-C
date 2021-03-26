@@ -93,8 +93,5 @@ int main(void){
 
   //gcc combo.c -o c
 
-  float eig_x = cos(0.209440); //cos(PI/15)
-  float eig_y = sin(0.209440); //cos(PI/15)
-
   return 0;
 }
