@@ -1,10 +1,6 @@
 # e8.c
 
-We combine all the below code
-
-# draw.c
-
-Given a set of points and a binary string, this algorithm draws a graph to a widget
+A method that generates the E8 lie group and then performs a coxeter slice on it.
 
 # eig.py
 
