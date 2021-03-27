@@ -102,9 +102,7 @@ int main(void){
     }
   }
 
-  //use eig.py to calculate eigenvectors of root system
-
-  //clink -c Ex8
+  //use eig.py to calculate eigenvectors of root system . . . after some fiddling, these vectors appear
 
   float re[8] = {0.438217070641, 0.205187681291,
      0.36459828198, 0.0124511903657,
