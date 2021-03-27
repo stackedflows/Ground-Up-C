@@ -13,7 +13,7 @@ After that you can install Dislin with
 Dislin will be installed in the directory /usr/local/dislin. You also have to add this directory to the LD_LIBRARY_PATH variable.
 For example:
 
-     export LD_LIBRARY_PATH = /usr/local/dislin
+     cp -p -R /usr/local/dislin/examples $HOME
 
 # julia.c
 
