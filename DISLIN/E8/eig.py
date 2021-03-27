@@ -9,6 +9,7 @@
 #e7 = (000001-10)
 # eigval RE = cos(PI/15)
 # eigval IM = sin(PI/15)
+# follows formula 1 - 6 here https://tamasgorbe.wordpress.com/2015/10/28/coxeter-projection-of-exceptional-root-systems/
 #
 
 import numpy as np
