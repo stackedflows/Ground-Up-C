@@ -1,3 +1,10 @@
+# E8
+
+In progress. . . 
+
+![e8_test (2)](https://user-images.githubusercontent.com/73109076/112706433-01224e80-8e9c-11eb-8c1e-ef2c52bb3d3d.png)
+
+
 # Installing DISLIN
 
 the easiest way to install Dislin on Ubuntu is to use the .deb package of Dislin. If you have a 64-bit Ubuntu you have to download
@@ -27,6 +34,3 @@ still some kinks to iron out . . .
 
 ![mandelbrotset (2)](https://user-images.githubusercontent.com/73109076/108780252-0bc98b00-7560-11eb-9484-98b8082e68a9.png)
 
-# e8.c 
-
-In progress. . . 
