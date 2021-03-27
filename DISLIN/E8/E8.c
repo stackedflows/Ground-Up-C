@@ -78,8 +78,6 @@ int main(void){
     {-0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5}
   };
 
-  count = 0;
-
   for(int i = 0; i < 8; i++){
     permutations(base_sys[i],0,8);
   }
@@ -103,6 +101,7 @@ int main(void){
       }else{distance_matrix[i][ii] == 0;};
     }
   }
+    
   //use eig.py to calculate eigenvectors of root system
 
   //clink -c Ex8
@@ -142,7 +141,7 @@ int main(void){
   metafl("cons");
   disini();
 
-  graf(-2, 2, -2, 2, -2, 2, -2, 1);
+  graf(-1.2, 1.2, -1.2, 1.2, -1.2, 1.2, -1.2, 1);
 
   for(int i = 0; i < 240; i++){
     for(int ii = 0; ii < 240; ii++){
