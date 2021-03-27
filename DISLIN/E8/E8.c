@@ -1,5 +1,5 @@
 // to run
-//  clink -c e8.c
+//  clink -c Ex8
 // ./e8
 #include <stdio.h>
 #include <stdlib.h>
@@ -94,7 +94,6 @@ int main(void){
  //calculating distances between all roots, outputting correspondence matrix
 
   int distance_matrix[240][240];
-
   for(int i = 0; i < 240; i++){
     int dist_m = 100;
     for(int ii = 0; ii < 240; ii++){
@@ -104,22 +103,12 @@ int main(void){
       }else{distance_matrix[i][ii] == 0;};
     }
   }
-
   //use eig.py to calculate eigenvectors of root system
 
   //clink -c Ex8
+  float re[8] = {};
+  float im[8] = {};
 
-  float im_eigvect[8] = {
-    -3.27747995/10.0, 3.27747995/10.0,
-    8.42289350/100.0, -8.42289350/100.0,
-    -2.49005596/10.0,  2.49005596/10.0,
-    -3.27747995/10.0, 3.27747995/10.0};
-
-  float re_eigvect[8] = {
-    -8.42289350/100.0, -8.42289350/100.0,
-    -2.71077389/10.0, -2.71077389/10.0,
-    2.71077389/10.0, 2.71077389/10.0,
-    -2.49005596/10.0, -2.49005596/10.0};
 
   float rings_x[240];
   float rings_y[240];
@@ -129,8 +118,8 @@ int main(void){
     for(int ii = 0; ii < 8; ii++){
       current_point[ii] = root_sys[i][ii];
     }
-    rings_x[i] = inner_product_plus(re_eigvect, current_point);
-    rings_y[i] = inner_product_plus(im_eigvect, current_point);
+    rings_x[i] = inner_product_plus(current_point, re);
+    rings_y[i] = inner_product_plus(current_point, im);
   }
 
   printf("\n");
@@ -152,7 +141,8 @@ int main(void){
   marker(21);
   hsymbl(15);
 
-  qplsca(rings_x, rings_y, 30 * 8);
+  qplsca(rings_x, rings_y, 240);
 
   return 0;
 }
+
