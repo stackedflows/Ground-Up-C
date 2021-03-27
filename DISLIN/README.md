@@ -1,8 +1,6 @@
 # E8
 
-In progress. . . 
-
-![e8_test (2)](https://user-images.githubusercontent.com/73109076/112706433-01224e80-8e9c-11eb-8c1e-ef2c52bb3d3d.png)
+![2021-03-27 (2)](https://user-images.githubusercontent.com/73109076/112723930-ca365200-8f08-11eb-90bc-c7a3058af21a.png)
 
 
 # Installing DISLIN
