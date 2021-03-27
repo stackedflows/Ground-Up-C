@@ -106,9 +106,20 @@ int main(void){
   //use eig.py to calculate eigenvectors of root system
 
   //clink -c Ex8
-  float re[8] = {};
-  float im[8] = {};
-
+  float re[8] = {
+    -8.42289350e-02,
+    -8.42289350e-02,
+    -2.71077389e-01,
+    -2.71077389e-01,
+     2.71077389e-01,
+    2.71077389e-01,
+    -2.49005596e-01,
+    -2.49005596e-01};
+  float im[8] = {
+    -3.27747995e-01, 3.27747995e-01,
+    8.42289350e-02, -8.42289350e-02,
+    -2.49005596e-01,  2.49005596e-01,
+    -3.27747995e-01, 3.27747995e-01};
 
   float rings_x[240];
   float rings_y[240];
@@ -133,6 +144,15 @@ int main(void){
 
   graf(-2, 2, -2, 2, -2, 2, -2, 1);
 
+  for(int i = 0; i < 240; i++){
+    for(int ii = 0; ii < 240; ii++){
+      int connect = distance_matrix[i][ii];
+      if(connect == 1){
+        rline(rings_x[i], rings_y[i], rings_x[ii], rings_y[ii]);
+      }else{continue;}
+    }
+  }
+
   titlin("E8", 1);
 
   name("R-axis", "x");
@@ -143,6 +163,8 @@ int main(void){
 
   qplsca(rings_x, rings_y, 240);
 
+
   return 0;
 }
+
 
