@@ -57,7 +57,7 @@ float inner_product(float * vect_0, float * vect_1){
 float inner_product_plus(float * vect_0, float * vect_1){
   float sum = 0;
   for(int i = 0; i < 8; i++){
-    sum = sum + ((vect_0[i] + vect_1[i]) * (vect_0[i] + vect_1[i]));
+    sum = sum + (vect_0[i] * vect_1[i]);
   }return sum;
 }
 
@@ -84,6 +84,13 @@ int main(void){
     permutations(base_sys[i],0,8);
   }
 
+  for(int i = 0; i < 240; i++){
+    for(int ii = 0; ii < 8; ii++){
+      printf("%f ", root_sys[i][ii]);
+    }
+    printf("\n");
+  }
+
  //calculating distances between all roots, outputting correspondence matrix
 
   int distance_matrix[240][240];
@@ -91,7 +98,7 @@ int main(void){
   for(int i = 0; i < 240; i++){
     int dist_m = 100;
     for(int ii = 0; ii < 240; ii++){
-      float dist = (int)inner_product(root_sys[i], root_sys[ii]);
+      float dist = inner_product(root_sys[i], root_sys[ii]);
       if(dist == 2){ //connecting distance in E8
         distance_matrix[i][ii] = 1;
       }else{distance_matrix[i][ii] == 0;};
@@ -100,19 +107,19 @@ int main(void){
 
   //use eig.py to calculate eigenvectors of root system
 
+  //clink -c Ex8
+
   float im_eigvect[8] = {
-    -3.27747995e-01, -02+3.27747995e-01,
-    8.42289350e-02, -8.42289350e-02,
-    2.49005596e-01,  2.49005596e-01,
-    3.27747995e-01, 3.27747995e-01};
+    -3.27747995/10.0, 3.27747995/10.0,
+    8.42289350/100.0, -8.42289350/100.0,
+    -2.49005596/10.0,  2.49005596/10.0,
+    -3.27747995/10.0, 3.27747995/10.0};
 
   float re_eigvect[8] = {
-    -8.42289350e-02, -8.42289350e-02,
-    -2.71077389e-01, -2.71077389e-01,
-    2.71077389e-01, 2.71077389e-01,
-    -2.49005596e-01, -2.49005596e-01};
-
-  float zero[8] = {0,0,0,0,0,0,0,0};
+    -8.42289350/100.0, -8.42289350/100.0,
+    -2.71077389/10.0, -2.71077389/10.0,
+    2.71077389/10.0, 2.71077389/10.0,
+    -2.49005596/10.0, -2.49005596/10.0};
 
   float rings_x[240];
   float rings_y[240];
@@ -125,7 +132,9 @@ int main(void){
     rings_x[i] = inner_product_plus(re_eigvect, current_point);
     rings_y[i] = inner_product_plus(im_eigvect, current_point);
   }
-    
+
+  printf("\n");
+
   //graph the system
 
   scrmod("revers");
@@ -133,7 +142,7 @@ int main(void){
   metafl("cons");
   disini();
 
-  graf(-10, 10, -10, 1, -10, 10, -10, 1);
+  graf(-2, 2, -2, 2, -2, 2, -2, 1);
 
   titlin("E8", 1);
 
