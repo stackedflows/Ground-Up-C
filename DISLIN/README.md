@@ -10,10 +10,12 @@ After that you can install Dislin with
 
       sudo dpkg -i dislin-10.5.linux.i586_64.deb
 
-Dislin will be installed in the directory /usr/local/dislin. You also have to add this directory to the LD_LIBRARY_PATH variable.
-For example:
+Dislin will be installed in the directory /usr/local/dislin.
+
 
      cp -p -R /usr/local/dislin/examples $HOME
+
+This will export the library to you home directory
 
 # julia.c
 
