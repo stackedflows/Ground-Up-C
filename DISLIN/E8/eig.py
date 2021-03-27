@@ -1,4 +1,3 @@
-# using online tool to calculate base from basis in order
 #e0 = (1-1000000)
 #e1 = (01-100000)
 #e2 = (001-10000)
