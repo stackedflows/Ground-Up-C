@@ -86,7 +86,6 @@ int main(void){
     for(int ii = 0; ii < 8; ii++){
       printf("%f ", root_sys[i][ii]);
     }
-    printf("\n");
   }
 
  //calculating distances between all roots, outputting correspondence matrix
