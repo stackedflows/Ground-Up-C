@@ -1,6 +1,6 @@
 // to run
 //  clink -c Ex8
-// ./e8
+// ./Ex8
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -101,21 +101,20 @@ int main(void){
       }else{distance_matrix[i][ii] == 0;};
     }
   }
-    
+
   //use eig.py to calculate eigenvectors of root system
 
   //clink -c Ex8
-  float re[8] = {
-    -8.42289350e-02, -8.42289350e-02,
-    -2.71077389e-01, -2.71077389e-01,
-      2.71077389e-01, 2.71077389e-01,
-    -2.49005596e-01, -2.49005596e-01};
-    
-  float im[8] = {
-    -3.27747995e-01, 3.27747995e-01,
-    8.42289350e-02, -8.42289350e-02,
+
+  float re[8] = {-8.42289350e-02,-8.42289350e-02,
+     -2.71077389e-01,-2.71077389e-01,
+     2.71077389e-01,2.71077389e-01,
+     -2.49005596e-01,-2.49005596e-01};
+
+   float im[8] = {-3.27747995e-01, 3.27747995e-01,
+     8.42289350e-02, -8.42289350e-02,
     -2.49005596e-01,  2.49005596e-01,
-    -3.27747995e-01, 3.27747995e-01};
+     -3.27747995e-01, 3.27747995e-01};
 
   float rings_x[240];
   float rings_y[240];
@@ -145,6 +144,7 @@ int main(void){
       int connect = distance_matrix[i][ii];
       if(connect == 1){
         rline(rings_x[i], rings_y[i], rings_x[ii], rings_y[ii]);
+        distance_matrix[ii][i] = 0;
       }else{continue;}
     }
   }
@@ -162,5 +162,3 @@ int main(void){
 
   return 0;
 }
-
-
