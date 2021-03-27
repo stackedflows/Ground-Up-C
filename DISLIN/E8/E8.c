@@ -1,4 +1,6 @@
-//gcc e8.c -o e
+// to run
+//  clink -c e8.c
+// ./e8
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
