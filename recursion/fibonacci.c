@@ -1,17 +1,16 @@
 #include <stdio.h>
 
-void fib(int a, int b){
+void fib(int a, int b, int n){
+    int count = n + 1;
     int x = b;
     int y = b + a;
-    printf("%d ", y);
-    if( y < 100){
-        fib(x, y);
-    }else{
-        return;
+    if( count < 40){
+        fib(x, y, count);
+        printf("%d ", x);
     }
 }
 
 int main (void){
-  fib (0, 1);
+  fib (0, 1, 0);
   return 0;
 }
