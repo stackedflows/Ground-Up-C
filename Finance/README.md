@@ -19,3 +19,4 @@ NOTE: update - SQLite not necessary
 
 # black_scholes.c
 
+As the underlying mathematics that is used in the modern financial world, an impliementation of the process is useful for personal understanding
