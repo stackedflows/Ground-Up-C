@@ -20,3 +20,7 @@ NOTE: update - SQLite not necessary
 # black_scholes.c
 
 As the underlying mathematics that is used in the modern financial world, an impliementation of the process is useful for personal understanding
+
+Derived on the assumption that the underlying asset follows geometric brownian motion.
+
+https://en.wikipedia.org/wiki/Geometric_Brownian_motion
