@@ -2,6 +2,8 @@
 
 # radix.c (in dev...) 
 
+## includes implimentation of counting sort
+
 time-complexity:
 
          average/worst Omega(nk)
