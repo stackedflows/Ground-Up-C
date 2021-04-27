@@ -1,4 +1,4 @@
-# Basic C app design
+# app_skeleton.c
 Using C to manage personal finance
 
 Libraries used: GTK and SQLite.
@@ -16,3 +16,6 @@ compiled with:
           cc -o sql_gtk app.c -lsqlite3 `pkg-config --cflags --libs gtk+-3.0` -export-dynamic
 
 NOTE: update - SQLite not necessary
+
+# black_scholes.c
+
