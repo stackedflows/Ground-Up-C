@@ -24,3 +24,5 @@ As the underlying mathematics that is used in the modern financial world, an imp
 Derived on the assumption that the underlying asset follows geometric brownian motion.
 
 https://en.wikipedia.org/wiki/Geometric_Brownian_motion
+
+https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_equation#:~:text=In%20mathematical%20finance%2C%20the%20Black%E2%80%93Scholes%20equation%20is%20a,a%20variety%20of%20options%2C%20or%20more%20generally%2C%20derivatives.
