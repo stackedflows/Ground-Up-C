@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 
+// calculates the largest digit in an array
 int max(int * array, int len){
   int init = array[0];
   for(int i = 1; i < len; i++){
@@ -14,6 +15,7 @@ int max(int * array, int len){
   return init;
 }
 
+// calculates the number of powers of 10 in a number
 int digits(int item){
   int magnitude = 0;
   int holder = item;
@@ -24,6 +26,7 @@ int digits(int item){
   return magnitude;
 }
 
+// calculates the power of a number
 int power(int arg, int pwr){
   int base = 1;
   for(int i = 0; i < pwr; i++){
@@ -32,15 +35,17 @@ int power(int arg, int pwr){
   return base;
 }
 
+// calculates the nth digit of a number
 int high_sig_plc_val(int item, int digits){
   int divide = 10 * (digits - 1);
   return(floor(item / divide));
 }
 
+// useful for large digit arrays
 void radix_sort(int * array, int size, int maxDigit){
-
 }
 
+// useful for small digit arrays
 int * counting_sort(int * arr, int len){
   int mx = max(arr, len) + 1;
   int * index = malloc(mx * sizeof(int));
@@ -68,3 +73,4 @@ int main(void){
 
   return 0;
 }
+
