@@ -61,38 +61,33 @@ void bubbleSort(int arr[], int n)
 void heapify(int arr[], int n, int i) {
     // Find largest among root, left child and right child
     
-    // root = arr[i]
-    // left child of arr[i] = arr[2i + 2]
-    // right child of arr[i] = arr[2i + 1]
-
-    // find largest of 3 elements
-    // Find largest among root, left child and right child
     int root = i;
     int left = 2 * i + 1;
     int right = 2 * i + 2;
-  
-    if (left < n && arr[left] > arr[root])
-      root = left;
-  
-    if (right < n && arr[right] > arr[root])
-      root = right;
-  
-    // Swap and continue heapifying if root is not largest
-    if (root != i) {
-      swap(&arr[i], &arr[root]);
-      heapify(arr, n, root);
+    
+    if(left < n && arr[left] > arr[root]){
+        root = left;
+    }
+    
+    if(right < n && arr[right] > arr[root]){
+        root = right;
+    }
+    
+    if(root != i){
+        swap(&arr[i], &arr[root]);
+        heapify(arr, n, root);
     }
 }
 
 // Main function to do heap sort
 void buildHeap(int arr[], int n) {
-    for(int i = n; i >= 0; i--){
-        // finds the max heap
-        heapify(arr, n, i);
-    }
-    for(int i = n - 1; i >=0; i--){
-        // transforms max heap into ordered array
-        swap(&arr[0], &arr[i]);
-        heapify(arr, i, 0);
-    }
+   for(int i = n; i >= 0; i--){
+       heapify(arr, n, i);
+   }
+   
+   for(int i = n - 1; i >= 0; i--){
+       swap(&arr[0], &arr[i]);
+       // heapify the first i elements of the array, about 0
+       heapify(arr, i, 0);
+   }
 }
