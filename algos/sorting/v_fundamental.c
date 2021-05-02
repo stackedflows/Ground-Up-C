@@ -13,7 +13,7 @@ bool arraySortedOrNot(int arr[], int n) {
 }
 
 // A[]: input array
-// N: input array
+// N: input size
 //Function to sort the binary array.
 // time complexity o(2N)
 // space complexity N
