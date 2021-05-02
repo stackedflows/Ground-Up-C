@@ -87,9 +87,11 @@ void heapify(int arr[], int n, int i) {
 // Main function to do heap sort
 void buildHeap(int arr[], int n) {
     for(int i = n; i >= 0; i--){
+        // finds the max heap
         heapify(arr, n, i);
     }
     for(int i = n - 1; i >=0; i--){
+        // transforms max heap into ordered array
         swap(&arr[0], &arr[i]);
         heapify(arr, i, 0);
     }
