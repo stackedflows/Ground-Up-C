@@ -3,14 +3,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// defines data type 
 struct node{
   struct node *next_node;
   struct node *prev_node;
   int data;
 };
 
+// points to the first memeber
 struct node * head = NULL;
 
+// inserts member to list at head
 void insert(int data){
   struct node * temp;
   temp = (struct node *)malloc(sizeof(struct node));
