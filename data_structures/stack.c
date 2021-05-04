@@ -3,9 +3,11 @@
 
 #define SIZE 10
 
+// points to stack head
 int * stack;
 int count;
 
+// creates new member of stack, pushes the others down
 void push(int current, int count){
 	if(count == SIZE){
 		return;
@@ -20,6 +22,7 @@ void push(int current, int count){
 	}
 }
 
+// removes member of stack, pulls others up
 int pop(int count){
 	if(count == 0){
 		return 0;
