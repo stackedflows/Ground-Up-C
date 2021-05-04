@@ -13,7 +13,7 @@ struct node{
 // points to the first memeber
 struct node * head = NULL;
 
-// inserts member to list at head
+// inserts member to list at head, links it to previous head
 void insert(int data){
   struct node * temp;
   temp = (struct node *)malloc(sizeof(struct node));
