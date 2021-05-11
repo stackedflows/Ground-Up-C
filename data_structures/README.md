@@ -22,3 +22,6 @@ space-complexity:
          
          O(n)
 
+# heap.cpp
+
+includes an insert method and a bubble sort method for the heap
