@@ -1,4 +1,5 @@
 // impliments a bubble sort with an array ordered as a binary tree
+// useful when we have high priority queues
 
 #include <iostream>
 
