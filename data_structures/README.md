@@ -22,13 +22,3 @@ space-complexity:
          
          O(n)
 
-# hash_table.c
-
-time-complexity:
-
-         search average O(1)
-         search worst O(n)
-         
-space-complexity:
-         
-         O(n)
