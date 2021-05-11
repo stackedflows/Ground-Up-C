@@ -1,6 +1,8 @@
 #include <iostream>
 #include <bits/stdc++.h>
+
 using namespace std;
+
 // max size of hash map
 #define MAX 1000
 
@@ -38,6 +40,7 @@ void insert(int a[], int n){
    }
 }
 
+// test methods
 int main(){
     int a[] = { -1, 9, -5, -8, -5, -2 };
     int n = sizeof(a)/sizeof(a[0]);
@@ -48,3 +51,4 @@ int main(){
     else
        cout << "Not Present";
     return 0
+}
