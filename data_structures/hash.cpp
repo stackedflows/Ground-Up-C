@@ -1,54 +1,65 @@
 #include <iostream>
-#include <bits/stdc++.h>
 
 using namespace std;
 
-// max size of hash map
-#define MAX 1000
+// various primes for hash function
+#define P0 17
+#define P1 701
+#define P2 1001
 
-// hash map
+// max size of hash map
+#define MAX 10000
+
+// hash structure
 int hash_map[MAX][2];
 
-// search for element in array
+// hash the input
+int _hash(int X){
+    int h = (int) (P0 * X * P1 / P2 + P2);
+    return h;
+}
+
+// search the hash map
 bool search(int X){
-  
-  // X positive
-  if(X >= 0){
-    if(hash_map[X][0] == 1){
-        return true; 
-     }else{
+    int h_code = _hash(X);
+    
+    if(h_code >= 0){
+        if(hash_map[h_code][0] == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    if(hash_map[abs(h_code)][1] == 1){
+        return true;
+    }else{
         return false;
-      }
-  }  
-  
-  // X negative
-  if(hash_map[abs(X)][1] == 1){
-    return true; 
-  }else{
-    return false;
-  }
+    }
 }
 
-// insert method
-void insert(int a[], int n){
-   for(int i = 0; i < n; i++){
-     if(a[i] > 0){
-       hash_map[a[i]][0] = 1;
-     }else{
-       hash_map[abs(a[i])][1] = 1;
-     }
-   }
+// insert new inputs into hash map
+void insert(int arr[], int n){
+    for(int i = 0; i < n; i++){
+        int h_code = _hash(arr[i]);
+        if(h_code > 0){
+            hash_map[h_code][0] = 1;
+        }else{
+            hash_map[abs(h_code)][1] = 1;
+        }
+    }
 }
 
-// test methods
+// test medthods
 int main(){
-    int a[] = { -1, 9, -5, -8, -5, -2 };
-    int n = sizeof(a)/sizeof(a[0]);
-    insert(a, n);
-    int X = -5;
-    if (search(X) == true)
-       cout << "Present"; 
-    else
-       cout << "Not Present";
-    return 0
+    int a[] = {1 ,2 ,4 ,-2 ,-12 ,123 ,-443};
+    int len = sizeof(a)/sizeof(a[0]);
+    insert(a, len);
+    if(search(5)){
+        cout << "true";
+    }else{
+        cout << "false";
+    }
+    return 0;
 }
+
