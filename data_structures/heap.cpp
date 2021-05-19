@@ -1,57 +1,49 @@
-// impliments a bubble sort with an array ordered as a binary tree
-// useful when we have high priority queues
+using namespace std;
 
 #include <iostream>
 
-using namespace std;
+void heapify(int A[], int len, int x) {
+	int largest = x;
+	int left = 2 * x + 1;
+	int right = 2 * x + 2;
 
-#define MAX 100
+	if (left < len && A[left] > A[largest]) {
+		largest = left;
+	}
 
-// in this array, each node has left child 2i + 1, right child 2i + 2
-// each node has parent floor((i-1)/2)
-int arr[MAX];
+	if (right < len && A[right] > A[largest]) {
+		largest = right;
+	}
 
-// tracks how many elements are inserted into heap
-int count = 0;
-
-// sorts heap
-void sort(int position){
-    if(count == 0){return;}
-    else{
-        int i = position - 1;
-        int j = (position-1)/2;
-        while(arr[j] > arr[i]){
-            int temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
-            i = (i-1)/2;
-        }
-    }
+	if (largest != x) {
+		swap(A[x], A[largest]);
+		
+		heapify(A, len, largest);
+	}
 }
 
-// handles insert
-void insert(int data){
-    if(count == MAX){
-        return;
-    }else{
-        arr[count] = data;
-        count++;
-    }
-    sort(count);
+void heapsort(int A[], int len) {
+	for (int i = (len / 2) - 1; i >= 0; i--) {
+		heapify(A, len, i);
+	}
+
+	for (int i = len - 1; i >= 0; i--) {
+		swap(A[i], A[0]);
+		heapify(A, i, 0);
+	}
 }
 
 int main(){
-    
-    insert(10);
-    insert(5);
-    insert(13);
-    insert(17);
-    
+	int arr[] = {-1, 6, -9, 5, 7, 3, 0, 4, -3};
+	int len = sizeof(arr) / sizeof(arr[0]);
 
-    for(int i = 0; i < count; i++){
-        cout << arr[i];
-        cout << "\n";
-    }
+	heapsort(arr, len);
 
-    return 0;
+	for (int i = 0; i < len - 1; i++) {
+		cout << arr[i] << ',';
+	}
+	cout << arr[len - 1] << endl;
+
+	return 0;
 }
+
