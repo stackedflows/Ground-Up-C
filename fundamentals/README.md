@@ -18,7 +18,7 @@ loop:
     passes n + n-1 + n-2 ... + 1 = n(n+1)/2 times
             
         time complexity: O(n^2)
-            shifts quadratically bases on size of input array
+            shifts quadratically based on size of input array
         
 int temp:
     
