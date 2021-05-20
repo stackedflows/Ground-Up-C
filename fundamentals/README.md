@@ -14,16 +14,19 @@
               a[j+1] = temp
 
 first loop:
+
     passes n times
-    inner loop:
-        passes n + n-1 + n-2 ... + 1 times
+    
+inner loop:
+
+    passes n + n-1 + n-2 ... + 1 times
             
-      time complexity: O(n) * O(n) = O(n^2)
-        shifts quadratically bases on size of input array
+        time complexity: O(n) * O(n) = O(n^2)
+            shifts quadratically bases on size of input array
         
 int temp:
     
-    space complexity = O(1)
-        does not shift based on size of input array
+        space complexity = O(1)
+            does not shift based on size of input array
     
   
