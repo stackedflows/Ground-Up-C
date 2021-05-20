@@ -13,11 +13,7 @@
               a[j] = a[j+1]
               a[j+1] = temp
 
-first loop:
-
-    passes n times
-    
-inner loop:
+loop:
 
     passes n + n-1 + n-2 ... + 1 = n(n+1)/2 times
             
