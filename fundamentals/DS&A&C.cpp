@@ -204,7 +204,7 @@ public:
     void push(int n) {
         struct node* nn = new struct node;
         nn->data = n;
-        nn->next->head;
+        nn->next=head;
         head = nn;
     }
     int pop() {
