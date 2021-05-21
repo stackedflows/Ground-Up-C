@@ -1,8 +1,6 @@
 # A Brain**** Interpreter
 
-So this is an ongoing project: first step: interpret pure brainfuck. 
-
-First stage is now uploaded, next step is to write the vocab...
+First step: interpret pure brainfuck. 
 
 You can make a hello world program in a .txt file as followed:
 
