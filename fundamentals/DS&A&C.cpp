@@ -125,8 +125,9 @@ class OOP {
 private:
     int encap = 1;
 public:
-    void abstract(int e) {
+    int abstract(int e) {
         encap = e;
+        return encap;
     }
 };
 
@@ -176,7 +177,7 @@ public:
     }
     void add(int n) {
         struct node* nn = new struct node;
-        nn->data - n;
+        nn->data = n;
         nn->next = head;
         head = nn;
     }
@@ -227,7 +228,55 @@ public:
     }
 };
 
+void print(int a[], int len) {
+    for (int i = 0; i < len; i++) {
+        cout << a[i] << ' ';
+    }
+    cout << endl;
+}
+
 int main() {
+    OOP o;
+    // encapsulate o.encap
+    cout << o.abstract(7) << endl;
+
+    inherit i;
+    cout << i.abstract(8) << endl;
+
+    poly* p;
+    child0 c0(1);
+    child1 c1(1);
+    p = &c0;
+    cout << c0.prop() << endl;
+    p = &c1;
+    cout << c1.prop() << endl;
+
+    linked_list ll;
+    for (int i = 0; i < 10; i++) {
+        ll.add(i);
+    }
+    cout << ll.search(11) << endl;
+    cout << ll.search(2) << endl;
+
+    stack stk;
+    for (int i = 0; i < 4; i++) {
+        stk.push(i);
+    }
+    cout << stk.search(2) << endl;
+
+    sort s;
+    int a0[] = { 1, -3, 6, -1, 20, 67, 2 };
+    int len = sizeof(a0) / sizeof(a0[0]);
+    s.heapsort(a0, len);
+    print(a0, len);
+
+    int a1[] = { 1, -3, 6, -1, 20, 67, 2 };
+    s.mergesort(a1, len);
+    print(a1, len);
+
+    int a2[] = { 1, -3, 6, -1, 20, 67, 2 };
+    s.quicksort(a2, 0, len);
+    print(a2, len);
 
     return 0;
 }
