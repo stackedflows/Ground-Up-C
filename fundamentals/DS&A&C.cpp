@@ -109,7 +109,7 @@ class sort {
 		}
 
 		// space complexity: O(n), as the splitting of the main array into sub arrays are linear in space complexity
-		// time complexity: 
+		// time complexity: O(nlog(n)), as the arrays are divided in half each mergsort call
 };
 
 class linked_list {
