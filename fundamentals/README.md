@@ -86,3 +86,9 @@ int temp:
             
     space complexity: no extra space is required to run the algorithm, it operates on the original array only
         O(1)
+
+
+### bfs
+
+        time complexity: O(V + E)
+        space complexity: O(V)
