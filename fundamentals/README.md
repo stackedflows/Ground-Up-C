@@ -88,7 +88,32 @@ int temp:
         O(1)
 
 
-### bfs
+### dfs
 
         time complexity: O(V + E)
         space complexity: O(V)
+        
+        dfs(g, v)
+            v.discovered
+            for w in v.neibours:
+                if !w.discovered:
+                    dfs(g, w)
+                    
+        for k in g.verticies:
+            if !k.discovered:
+                dfs(g, k)
+                
+###  bfs
+
+        time complexity: O(V + E)
+        space complexity: O(V)
+        
+        bfs(g, root):
+            queue(verts) q
+            root.discovered
+            while(len(q) > 0):
+                s = q.dequeue()
+                for k in s.neibours:
+                    if !k.discovered:
+                        q.enqueue(k)
+                        bfs(g, s)
