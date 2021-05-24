@@ -115,5 +115,6 @@ int temp:
                 s = q.dequeue()
                 for k in s.neibours:
                     if !k.discovered:
+                        k.discovered
                         q.enqueue(k)
-                        bfs(g, s)
+                        
