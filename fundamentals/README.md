@@ -111,6 +111,7 @@ int temp:
         bfs(g, root):
             queue(verts) q
             root.discovered
+            q.enqueue(root)
             while(len(q) > 0):
                 s = q.dequeue()
                 for k in s.neibours:
