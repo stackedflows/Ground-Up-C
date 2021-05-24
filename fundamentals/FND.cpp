@@ -1,85 +1,81 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
 /// <summary>
-/// dfs/bfs
+/// bfs/dfs
 /// </summary>
-
-// time complexity: O(V + E)
-// space compexity: O(V)
-
+/// time complexity: O(V + E)
+/// space complexity: O(V)
+/// 
 class vertex {
-private:
-	int identity;
-	vector<int> neibours;
-	int nneibours;
 public:
-	bool discovered = false;
-	vertex(int _identity, vector<int> _neibours, int _nneibours) {
-		identity = _identity;
-		neibours = _neibours;
-		nneibours = _nneibours;
-	}
-	int get_id() {
-		return identity;
-	}
-	vector<int> get_neibs() {
-		return neibours;
-	}
-	int get_nneibs() {
-		return nneibours;
+	int id;
+	vector<int> neibs;
+	int ncount;
+	bool discovered;
+	vertex(int _id, vector<int> _neibs, int _ncount) {
+		id = _id;
+		neibs = _neibs;
+		ncount = _ncount;
+		discovered = false;
 	}
 };
 
 class graph {
-private:
-	int count = 0;
 public:
-	vector<vertex*> vertices;
-	void add(int id, vector<int> neibs, int nneibs) {
-		vertex* v = new vertex(id, neibs, nneibs);
-		vertices.push_back(v);
+	int count = 0;
+	vector<vertex*> verticies;
+	void add(int _id, vector<int> _neibs, int _ncount) {
+		vertex* v = new vertex(_id, _neibs, _ncount);
+		verticies.push_back(v);
 		count++;
-	}
-	int get_count() {
-		return count;
 	}
 };
 
-void dfs(graph g, vertex* v) {
-	cout << v->get_id() << ' ';
+void dfs(graph g, vertex*v) {
+	cout << v->id << ' ';
 	v->discovered = true;
-	vector<int> neibs = v->get_neibs();
-	for (int i = 0; i < v->get_nneibs(); i++) {
-		int curr = neibs[i];
-		vertex* cv = g.vertices[curr];
+	for (int i = 0; i < v->ncount; i++) {
+		vertex* cv = g.verticies[(v->neibs)[i]];
 		if (cv->discovered == false) {
-			return dfs(g, cv);
+			dfs(g, cv);
+		}
+	}
+}
+
+void bfs(graph g, vertex* root) {
+	queue<vertex*> q;
+	root->discovered = true;
+	q.push(root);
+	while (q.size() > 0) {
+		vertex* s = q.front();
+		cout << s->id << ' ';
+		vector<int> neibs = s->neibs;
+		int ncount = s->ncount;
+		q.pop();
+		for (int i = 0; i < ncount; i++) {
+			if (g.verticies[neibs[i]]->discovered == false) {
+				g.verticies[neibs[i]]->discovered = true;
+				q.push(g.verticies[neibs[i]]);
+			}
 		}
 	}
 }
 
 /// <summary>
-/// sorting algs
+/// sorting
 /// </summary>
 /// <returns></returns>
 
-// heapsort
-// time compelxity: O(nlog(n)), as the heap is of max height log(n), and we heapify it a maximum of n times
-// space complexity: O(1), as we operate only on the original data structure
-
-// quicksort
-// time complexity: O(n^2), as each pass the pivot could land on the smallest index, causing n comparisons and n passes
-// space complexity: O(nlog(n)), occurs if we partiion the heap at the midpoint each time
-
-// mergesort
-// time complexity: O(nlog(n)), as the merge/comparison could take n iterations, and there are log(n) array splits
-// space complexity: O(n), as each of n passes we need to create an array of constant size 
-
-class sort {
+class sorting {
 public:
+	/// <summary>
+	/// time complexity: partition runs in worst case n iterations, and quicksort runs in worst case n iterations: O(n^2)
+	/// space complexity: partition takes constant space, and runs at worst n times: O(n)
+	/// </summary>
 	int partition(int a[], int l, int h) {
 		int pivot = a[h];
 		int index = l;
@@ -89,7 +85,7 @@ public:
 				index++;
 			}
 		}
-		swap(a[h], a[index]);
+		swap(a[index], a[h]);
 		return index;
 	}
 	void quicksort(int a[], int l, int h) {
@@ -100,6 +96,10 @@ public:
 		}
 	}
 
+	/// <summary>
+	/// time complexity: O(nlog(n)) merge sorts in logarithmic time, and is called n times
+	/// space complexity: O(n), we require instantiation of new arrays each level
+	/// </summary>
 	void merge(int l[], int nl, int r[], int nr, int a[]) {
 		int i = 0;
 		int j = 0;
@@ -134,7 +134,7 @@ public:
 			for (int i = 0; i < m; i++) {
 				l[i] = a[i];
 			}
-			for(int i = m; i < len; i++){
+			for (int i = m; i < len; i++) {
 				r[i - m] = a[i];
 			}
 			mergesort(l, m);
@@ -143,6 +143,10 @@ public:
 		}
 	}
 
+	/// <summary>
+	/// time complexity: O(nlog(n)) heapify is recursively called at most log(n) times, and called at most n times by heapsort
+	/// space complexity: O(1), as we operate on the original array only
+	/// </summary>
 	void heapify(int a[], int len, int x) {
 		int largest = x;
 		int left = 2 * x + 1;
@@ -154,7 +158,7 @@ public:
 			largest = right;
 		}
 		if (largest != x) {
-			swap(a[x], a[largest]);
+			swap(a[largest], a[x]);
 			heapify(a, len, largest);
 		}
 	}
@@ -167,16 +171,24 @@ public:
 			heapify(a, i, 0);
 		}
 	}
+
+	void print(int a[], int len) {
+		for (int i = 0; i < len; i++) {
+			cout << a[i] << ' ';
+		}
+		cout << endl;
+	}
 };
 
 /// <summary>
 /// recursion
 /// </summary>
+/// <returns></returns>
 
 class recursion {
 public:
 	void fib(int n, int i, int t) {
-		if (t > n) {
+		if (n < t) {
 			int k = n + i;
 			int j = n;
 			cout << k << ' ';
@@ -197,11 +209,11 @@ public:
 		return prime(n, i - 1);
 	}
 
-	void binary_search(int a[], int l, int h, int t) {
-		if (l < h) {
-			int m = (l + h) / 2;
+	int binary_search(int a[], int l, int h, int t) {
+		int m = (l + h) / 2;
+		if (l <= h) {
 			if (a[m] == t) {
-				cout << m << endl;
+				return m;
 			}
 			else if (a[m] < t) {
 				return binary_search(a, m + 1, h, t);
@@ -212,145 +224,72 @@ public:
 		}
 	}
 
-	void reverse(char str[], int l, int h) {
-		if (l < h) {
-			swap(str[l], str[h]);
+	void reverese(char word[], int l, int h) {
+		while (l < h) {
+			swap(word[l], word[h]);
 			l++;
 			h--;
-			reverse(str, l, h);
+			return reverese(word, l, h);
 		}
 	}
-};
- 
-/// <summary>
-/// OOP
-/// </summary>
-/// <param name="a"></param>
-/// <param name="len"></param>
 
-class OOP {
-private:
-	int encap = 0;
-public:
-	void abstract(int _x = 0) {
-		encap = _x;
-		cout << encap << endl;
-	}
 };
-
-class animal {
-public:
-	virtual bool eat(const char food[]) {
-		return NULL;
-	}
-};
-
-class monkey : public animal {
-public:
-	bool eat(const char food[]) {
-		return food == "banana";
-	}
-};
-
-class whale : public animal {
-public:
-	bool eat(const char food[]) {
-		return food == "fish";
-	}
-};
-
-class cafe {
-public:
-	void feeder(animal * a, const char food[]) {
-		cout << a->eat(food) << endl;
-	}
-};
-
-void print(int a[], int len) {
-	for (int i = 0; i < len; i++) {
-		cout << a[i] << ' ';
-	}
-	cout << endl;
-}
 
 int main() {
 	/// <summary>
-	/// dfs
+	/// bfs/dfs
 	/// </summary>
 	/// <returns></returns>
 	graph g;
-	g.add(0, { 1, 2, 3 }, 3);
-	g.add(1, { 0, 2 }, 2);
-	g.add(2, { 1, 0, 4 }, 3);
-	g.add(3, { 0 }, 1);
-	g.add(4, { 2 }, 1);
+	g.add(0, { 1, 2 }, 2);
+	g.add(1, { 0, 3, 4 }, 3);
+	g.add(2, { 0, 5, 6 }, 3);
+	g.add(3, { 1 }, 1);
+	g.add(4, { 1, 7 }, 2);
+	g.add(5, { 2 }, 1);
+	g.add(6, { 2 }, 1);
+	g.add(7, { 4 }, 1);
 
-	for (int i = 0; i < g.get_count(); i++) {
-		vertex* c = g.vertices[i];
-		if (c->discovered == false) {
-			dfs(g, c);
+	bfs(g, g.verticies[0]);
+
+	/*
+	for (int i = 0; i < g.count; i++) {
+		if (g.verticies[i]->discovered == false) {
+			dfs(g, g.verticies[i]);
 		}
 	}
-	cout << endl;
+	*/
 
 	/// <summary>
 	/// sort
 	/// </summary>
 	/// <returns></returns>
+	sorting s;
+	int a0[] = { 12, -5, 12312, 223, -45 };
+	int l = 5;
+	s.heapsort(a0, l);
+	s.print(a0, l);
 
-	sort s;
+	int a1[] = { 12, -5, 12312, 223, -45 };
+	s.mergesort(a1, l);
+	s.print(a1, l);
 
-	int a0[] = { 12, -3, 435, 3, 5, -2, 56, -65 };
-	int len = 8;
-	s.quicksort(a0, 0, len);
-	print(a0, len);
+	int a2[] = { 12, -5, 12312, 223, -45 };
+	s.quicksort(a2, 0, l);
+	s.print(a2, l);
 
-	int a1[] = { 12, -3, 435, 3, 5, -2, 56, -65 };
-	s.mergesort(a1, len);
-	print(a1, len);
-
-	int a2[] = { 12, -3, 435, 3, 5, -2, 56, -65 };
-	s.heapsort(a2, len);
-	print(a2, len);
 
 	/// <summary>
 	/// recursion
 	/// </summary>
 	/// <returns></returns>
-
 	recursion r;
-
-	r.fib(0, 1, 10);
-	r.prime(10, 9);
-	r.prime(11, 10);
-
-	int a3[] = { 12, -3, 435, 3, 5, -2, 56, -65 };
-	r.binary_search(a3, 0, len, 56);
-
-	char str[] = "wassup";
-	r.reverse(str, 0, 5);
-	cout << str << endl;
-
-	/// <summary>
-	/// OOP
-	/// </summary>
-	/// <returns></returns>
-	
-	animal a;
-	monkey m;
-	whale w;
-	cafe c;
-
-	c.feeder(&w, "fish");
-	c.feeder(&w, "banana");
-	c.feeder(&m, "banana");
-
-	OOP o;
-	o.abstract(10);
-
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <returns></returns>
+	r.fib(1, 0, 15);
+	r.prime(101, 100);
+	int a3[] = { 1, 3, 7, 9, 10 };
+	cout << r.binary_search(a3, 0, l, 3) << endl;
+	char word[] = "indian";
+	r.reverese(word, 0, 5);
+	cout << word << endl;
 	return 0;
 }
