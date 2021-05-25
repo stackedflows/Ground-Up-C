@@ -13,18 +13,9 @@
               a[j] = a[j+1]
               a[j+1] = temp
 
-loop:
-
-    passes n + n-1 + n-2 ... + 1 = n(n+1)/2 times
-            
-        time complexity: O(n^2)
-            shifts quadratically based on size of input array
-        
-int temp:
+    time complexity:
     
-        space complexity = O(1)
-            does not shift based on size of input array
-    
+    space complexity:
   
 ### quicksort
 
@@ -44,20 +35,10 @@ int temp:
         swap(a[r], a[index])
         return index
         
-    average/best case: each time the quicksort algorithm picks the middle element as pivot
-        this means the tree is balanced and so is height log(n)
-            algorihm passes n times
-                time complexity is O(nlog(n))
+    time complexity:
                 
-    worst case: quicksort algorithm chooses leftmost element each time
-        tree is right heavy
-            each step n makes n - 1 comparisons
-                time complexity n(n-1)/2
 
     space complexity:
-        quicksort partitions the array into two:
-            each call to partition generates a constant space complexity with the swap methods
-                quicksort is called with an upper bound of n times
                 
 ### heapsort
 
@@ -80,13 +61,6 @@ int temp:
             swap(a[0], a[len])
             heapify(a, i, 0)
             
-    upper bound: height of heap is at most log(n)
-        heapify is called O(n) times
-            time complexity is O(nlog(n))
-            
-    space complexity: no extra space is required to run the algorithm, it operates on the original array only
-        O(1)
-
 
 ### dfs
 
