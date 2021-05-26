@@ -300,6 +300,18 @@ public:
 		}
 		return 0;
 	}
+	void reverse(){
+		struct node* curr = head;
+		struct node* prev = NULL;
+		struct node* next = NULL;
+		whiel(curr != NULL){
+			prev = curr->next;
+			curr->next = prev;
+			prev = curr;
+			curr = next;
+		}
+		head = curr;
+	}
 };
 
 int main() {
