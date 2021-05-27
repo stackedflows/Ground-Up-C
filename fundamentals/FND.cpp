@@ -281,33 +281,107 @@ public:
 /// <returns></returns>
 class sorting {
 public:
-	void merge() {
-
+	void merge(int l[], int nl, int r[], int nr, int a[]) {
+		int i = 0, j = 0, k = 0;
+		while (i < nl && j < nr) {
+			if (l[i] < r[j]) {
+				a[k] = l[i];
+				i++;
+			}
+			else {
+				a[k] = r[j];
+				j++;
+			}
+			k++;
+		}
+		while (i < nl) {
+			a[k] = l[i];
+			i++;
+			k++;
+		}
+		while (j < nr) {
+			a[k] = r[j];
+			j++;
+			k++;
+		}
 	}
-	void mergesort() {
-
+	void mergesort(int a[], int len) {
+		if (len >= 2) {
+			int m = len / 2;
+			int* l = new int[m]();
+			int* r = new int[len - m]();
+			for (int i = 0; i < m; i++) {
+				l[i] = a[i];
+			}
+			for (int i = m; i < len; i++) {
+				r[i - m] = a[i];
+			}
+			mergesort(l, m);
+			mergesort(r, len - m);
+			merge(l, m, r, len - m, a);
+		}
 	}
 
-	void heapify() {
-
+	void heapify(int a[], int len, int x) {
+		int largest = x;
+		int left = 2 * x + 1;
+		int right = 2 * x + 2;
+		if (left < len && a[largest] < a[left]) {
+			largest = left;
+		}
+		if (right < len && a[largest] < a[right]) {
+			largest = right;
+		}
+		if (largest != x) {
+			swap(a[largest], a[x]);
+			heapify(a, len, largest);
+		}
 	}
-	void heapsort() {
-
+	void heapsort(int a[], int len) {
+		for (int i = (len / 2) - 1; i >= 0; i--) {
+			heapify(a, len, i);
+		}
+		for (int i = len - 1; i >= 0; i--) {
+			swap(a[0], a[i]);
+			heapify(a, i, 0);
+		}
 	}
 
-	int partition() {
-
+	int partition(int a[], int l, int h) {
+		int p = a[h];
+		int ind = l;
+		for (int i = l; i < h; i++) {
+			if (a[i] < p) {
+				swap(a[i], a[ind]);
+				ind++;
+			}
+		}
+		swap(a[h], a[ind]);
+		return ind;
 	}
-	void quicksort() {
-
+	void quicksort(int a[], int l, int h) {
+		if (l < h) {
+			int piv = partition(a, l, h);
+			quicksort(a, l, piv - 1);
+			quicksort(a, piv + 1, h);
+		}
 	}
 
-	void bubblesort() {
-
+	void bubblesort(int a[], int len) {
+		for (int i = 0; i < len; i++) {
+			for (int j = i + 1; j < len; j++) {
+				if (a[i] > a[j]) {
+					swap(a[i], a[j]);
+				}
+			}
+		}
 	}
 
-	void print() {
-
+	void print(int a[], int len) {
+		for (int i = 0; i < len; i++) {
+			cout << a[i] << ' ';
+		}
+		cout << endl;
 	}
 };
 
@@ -381,11 +455,23 @@ int main() {
 	ll.display();
 	ll.reverse();
 	ll.display();
-
+	cout << endl;
 	/// <summary>
 	/// sorting
 	/// </summary>
 	/// <returns></returns>
 	sorting srt;
+	int a0[] = { 123, -2, 12, 234 };
+	srt.heapsort(a0, 4);
+	srt.print(a0, 4);
+	int a1[] = { 123, -2, 12, 234 };
+	srt.quicksort(a1, 0, 3);
+	srt.print(a1, 4);
+	int a2[] = { 123, -2, 12, 234 };
+	srt.mergesort(a2, 4);
+	srt.print(a2, 4);
+	int a3[] = { 123, -2, 12, 234 };
+	srt.bubblesort(a3, 4);
+	srt.print(a3, 4);
 	return 0;
 }
