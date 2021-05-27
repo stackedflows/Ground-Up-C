@@ -79,6 +79,7 @@ int main(void){
     permutations(base_sys[i],0,8);
   }
 
+   ///debug
   for(int i = 0; i < 240; i++){
     for(int ii = 0; ii < 8; ii++){
       printf("%f ", root_sys[i][ii]);
