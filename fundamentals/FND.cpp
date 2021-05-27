@@ -1,14 +1,230 @@
 #include <iostream>
-#include <queue>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
 /// <summary>
-/// dfs/bfs:
-///		time complexity: O(V+E)
-///		space complexity: O(V)
+/// hash map
+/// search: O(n) with ll, O(1) without
+/// insert: O(n) with ll, O(1) without
 /// </summary>
+class hash_node {
+public:
+	int val;
+	hash_node* next;
+};
+
+class hash_map {
+private:
+	hash_node** table;
+	int size;
+public:
+	hash_map(int _size) {
+		size = _size;
+		table = new hash_node * [size]();
+	}
+	int hash(int n) {
+		return n % size;
+	}
+	void display() {
+		for (int i = 0; i < size; i++) {
+			cout << i << ':' << table[i]->val << ' ';
+		}
+		cout << endl;
+	}
+	void insert(int n) {
+		int index = hash(n);
+		hash_node* nn = new hash_node;
+		nn->val = n;
+		nn->next = NULL;
+		hash_node* curr = table[index];
+		if (curr == NULL) {
+			table[index] = nn;
+		}
+		else {
+			while (curr->next != NULL) {
+				curr = curr->next;
+			}
+			curr->next = nn;
+		}
+	}
+	void search(int n) {
+		int index = hash(n);
+		hash_node* nn = table[index];
+		cout << index;
+		if (nn == NULL) {
+			table[index] = nn;
+			cout << "yep" << endl;
+		}
+		else {
+			int count = 0;
+			while (nn!= NULL) {
+				if (nn->val == n) {
+					cout << "true:" << count << endl;
+				}
+				nn = nn->next;
+				count++;
+			}
+			cout << "false" << endl;
+		}
+	}
+};
+/// <summary>
+/// sort
+/// quicksort:
+///		tc: O(n^2), if pivot falls on lowermost index each time
+///		sc: O(n), n recursive calls of partition, which has constant space complexity in stack
+///	heapsort:
+///		tc: O(nlog(n)), heapify makes max log(n) recursive calls, heapsort called max n times
+///		sc: O(n), called recursively n times
+/// mergesort:
+///		tc: O(nlog(n)), merge makes max n comparisons, mergesort called max log(n) times
+///		sc: O(n), max n calls to mergesort, wich instantiates new arrays of contant size
+/// </summary>
+/// <returns></returns>
+class sorting {
+public:
+	int partition(int a[], int l, int h) {
+		int piv = a[h];
+		int index = l;
+		for (int i = l; i < h; i++) {
+			if (a[i] > piv) {
+				swap(a[i], a[index]);
+				index++;
+			}
+		}
+		swap(a[h], a[index]);
+		return index;
+	}
+	void quicksort(int a[], int l, int h) {
+		if (l < h) {
+			int piv = partition(a, l, h);
+			quicksort(a, l, piv - 1);
+			quicksort(a, piv + 1, h);
+		}
+	}
+
+
+	void merge(int l[], int nl, int r[], int nr, int a[]) {
+		int i = 0, j = 0, k = 0;
+		while (i < nl && j < nr) {
+			if (l[i] < r[j]) {
+				a[k] = l[i];
+				i++;
+			}
+			else {
+				a[k] = r[j];
+				j++;
+			}
+			k++;
+		}
+		while (i < nl) {
+			a[k] = l[i];
+			i++;
+			k++;
+		}
+		while (j < nr) {
+			a[k] = r[j];
+			j++;
+			k++;
+		}
+	}
+	void mergesort(int a[], int len) {
+		while (len >= 2) {
+			int m = len / 2;
+			int* l = new int[m]();
+			int* r = new int[len - m]();
+			for (int i = 0; i < m; i++) {
+				l[i] = a[i];
+			}
+			for (int i = m; i < len; i++) {
+				r[i - m] = a[i];
+			}
+			mergesort(l, m);
+			mergesort(r, len - m);
+			merge(l, m, r, len - m, a);
+		}
+	}
+
+	void heapify(int a[], int len, int x) {
+		int largest = x;
+		int left = 2 * x + 1;
+		int right = 2 * x + 2;
+		if (left < len && a[largest] < a[left]) {
+			largest = left;
+		}
+		if (right < len && a[right] < a[largest]) {
+			largest = right;
+		}
+		if (largest != x) {
+			swap(a[largest], a[x]);
+			heapify(a, len, largest);
+		}
+	}
+	void heapsort(int a[], int len) {
+		for (int i = (len / 2) - 1; i >= 0; i--) {
+			heapify(a, len, i);
+		}
+		for (int i = len - 1; i >= 0; i--) {
+			swap(a[0], a[i]);
+			heapify(a, i, 0);
+		}
+	}
+
+	void print(int a[], int len) {
+		for (int i = 0; i < len; i++) {
+			cout << a[i] << ' ';
+		}
+		cout << endl;
+	}
+};
+/// <summary>
+/// linked list
+/// </summary>
+/// <returns></returns>
+class linked_list {
+private:
+	struct node {
+		int data;
+		node* next;
+	};
+	node* head = NULL;
+public:
+	void add(int n) {
+		node* nn = new node;
+		nn->data = n;
+		nn->next = head;
+		head = nn;
+	}
+	void reverse() {
+		node* curr = head;
+		node* prev = NULL;
+		node* next = NULL;
+		while (curr) {
+			next = curr->next;
+			curr->next = prev;
+			prev = curr;
+			curr = next;
+		}
+		head = prev;
+	}
+	void display() {
+		node* curr = head;
+		while (curr) {
+			cout << curr->data << ' ';
+			curr = curr->next;
+		}
+		cout << endl;
+	}
+};
+
+/// <summary>
+/// dfs/bfs
+///		tc: O(V+E)
+///		sc: O(V)
+/// </summary>
+/// <returns></returns>
 class vertex {
 public:
 	int id;
@@ -25,26 +241,26 @@ public:
 
 class graph {
 public:
-	int count = 0;
 	vector<vertex*> verticies;
+	int size = 0;;
 	void add(int _id, vector<int> _neibs, int _nneibs) {
-		vertex* v = new vertex(_id,  _neibs, _nneibs);
+		vertex* v = new vertex(_id, _neibs, _nneibs);
 		verticies.push_back(v);
-		count++;
+		size++;
 	}
 };
 
 void dfs(graph g, vertex* v) {
+	v->discovered = true;
 	cout << v->id << ' ';
-	v->discovered = 1;
 	vector<int> neibs = v->neibs;
-	for (int i = 0; i < v->nneibs; i++) {
-		vertex* c = g.verticies[neibs[i]];
-		if (c->discovered == 0) {
-			return dfs(g, c);
+	int size = v->nneibs;
+	for (int i = 0; i < size; i++) {
+		vertex* cv = g.verticies[neibs[i]];
+		if (cv->discovered == false) {
+			return dfs(g, cv);
 		}
 	}
-	cout << ':' ;
 }
 
 void bfs(graph g, vertex* root) {
@@ -52,338 +268,194 @@ void bfs(graph g, vertex* root) {
 	queue<vertex*> q;
 	q.push(root);
 	while (q.size() > 0) {
-		vertex* v = q.front();
-		vector<int> neibs = v->neibs;
-		int nneibs = v->nneibs;
+		vertex* curr = q.front();
+		vector<int> neibs = curr->neibs;
+		int size = curr->nneibs;
 		q.pop();
-		for (int i = 0; i < nneibs; i++) {
-			vertex* k = g.verticies[neibs[i]];
-			if (k->discovered == 0) {
-				cout << k->id << ' ';
-				k->discovered = 1;
-				q.push(k);
+		for (int i = 0; i < size; i++) {
+			vertex* cv = g.verticies[neibs[i]];
+			if (cv->discovered == false) {
+				cv->discovered = true;
+				cout << cv->id << ' ';
+				q.push(cv);
 			}
 		}
 	}
+	cout << endl;
 }
 
 /// <summary>
-/// sort
-///		quicksort:
-///			tc: O(n^2), if pivot lands on lower index each pass
-///			sc: O(n), quicksort called recursively max n times, partition stores vals on stack
-///		mergesort:
-///			tc: O(nlog(n)), merge takes max log(n) ops, mergesort passes max n times
-///			sc: O(n), constant arrays called n times
-///		heapsort:
-///			tc: O(nlog(n)), heapify calls itself max n times, each heapify taking max log(n) time
-///			sc: O(n), heapify called recurively max n times, stores values on stack
-/// </summary>
-/// <returns></returns>
-class sorting {
-	public:
-		int partition(int a[], int l, int h) {
-			int piv = a[h];
-			int ind = l;
-			for (int i = l; i < h; i++) {
-				if (a[i] < piv) {
-					swap(a[i], a[ind]);
-					ind++;
-				}
-			}
-			swap(a[ind], a[h]);
-			return ind;
-		}
-		void quicksort(int a[], int l, int h) {
-			if (l < h) {
-				int piv = partition(a, l, h);
-				quicksort(a, l, piv - 1);
-				quicksort(a, piv + 1, h);
-			}
-		}
-
-		void merge(int l[], int nl, int r[], int nr, int a[]) {
-			int i = 0, j = 0, k = 0;
-			while (i < nl && j < nr) {
-				if (l[i] < r[j]) {
-					a[k] = l[i];
-					i++;
-				}
-				else {
-					a[k] = r[j];
-					j++;
-				}
-				k++;
-			}
-			while (i < nl) {
-				a[k] = l[i];
-				i++;
-				k++;
-			}
-			while (j < nr) {
-				a[k] = r[j];
-				j++;
-				k++;
-			}
-		}
-		void mergesort(int a[], int len) {
-			if (len >= 2) {
-				int m = len / 2;
-				int* l = new int[m]();
-				int* r = new int[len - m]();
-				for (int i = 0; i < m; i++) {
-					l[i] = a[i];
-				}
-				for (int i = m; i < len; i++) {
-					r[i - m] = a[i];
-				}
-				mergesort(l, m);
-				mergesort(r, len - m);
-				merge(l, m, r, len - m, a);
-			}
-		}
-
-		void heapify(int a[], int len, int x) {
-			int largest = x;
-			int left = 2 * x + 1;
-			int right = 2 * x + 2;
-			if (left<len && a[left]>a[largest]) {
-				largest = left;
-			}
-			if (right<len && a[right]>a[largest]) {
-				largest = right;
-			}
-			if (largest != x) {
-				swap(a[largest], a[x]);
-				heapify(a, len, largest);
-			}
-		}
-		void heapsort(int a[], int len) {
-			for (int i = (len / 2) - 1; i >= 0; i--) {
-				heapify(a, len, i);
-			}
-			for (int i = len - 1; i >= 0; i--) {
-				swap(a[0], a[i]);
-				heapify(a, i, 0);
-			}
-		}
-
-		void print(int a[], int len) {
-			for (int i = 0; i < len; i++) {
-				cout << a[i] << ' ';
-			}
-			cout << endl;
-		}
-};
-
-/// <summary>
-/// recursive
-/// </summary>
-/// <returns></returns>
-class recursive {
-public:
-	void fib(int n, int i, int t) {
-		if(n < t){
-			cout << n << ' ';
-			int k = n + i;
-			int j = n;
-			return fib(k, j, t);
-		}
-		cout << endl;
-	}
-	void prime(int n, int i) {
-		if (i == 1) {
-			cout << "prime" << endl;
-			return;
-		}
-		if (n % i == 0) {
-			cout << "not prime" << endl;
-			return;
-		}
-		return prime(n, i - 1);
-	}
-	void reverse(char word[], int l, int h){
-		if (l < h) {
-			swap(word[l], word[h]);
-			l++;
-			h--;
-			return reverse(word, l, h);
-		}
-	}
-	int bin_search(int a[], int l, int h, int t) {
-		if (l < h) {
-			int m = (l + h) / 2;
-			if (a[m] == t) {
-				return m;
-			}
-			else if (a[m] < t) {
-				return bin_search(a, m + 1, h, t);
-			}
-			else {
-				return bin_search(a, l, m - 1, t);
-			}
-		}
-		return NULL;
-	}
-};
-
-/// <summary>
-/// oop
+/// OOP
 /// </summary>
 /// <returns></returns>
 class animal {
-private:
-	char* encap;
 public:
 	virtual bool eat(const char food[]) {
 		return NULL;
 	}
-	void abstract(char anim[], int len) {
-		encap = anim;
-		for (int i = 0; i < len; i++) {
-			cout << encap[i];
-		}
-		cout << endl;
-	}
 };
 
-class monkey : public animal {
+class donkey : public animal {
 public:
 	bool eat(const char food[]) {
 		return food == "banana";
 	}
 };
 
-class cat : public animal {
+class monkey : public animal {
 public:
 	bool eat(const char food[]) {
-		return food == "mouse";
+		return food == "shoe";
 	}
 };
 
 class zoo {
+private:
+	int size;
 public:
 	void feed(animal* a, const char food[]) {
 		cout << a->eat(food) << endl;
 	}
+	void abstract(int _size) {
+		size = _size;
+		cout << size << endl;
+	}
 };
 
 /// <summary>
-/// linked list
+/// recursion
 /// </summary>
 /// <returns></returns>
-class ll {
+class recursion {
 public:
-	struct node {
-		int data;
-		struct node* next;
-	};
-	struct node* head = NULL;
-	void add(int n) {
-		struct node* nn = new struct node;
-		nn->data = n;
-		nn->next = head;
-		head = nn;
-	}
-	void reverse() {
-		struct node* curr = head;
-		struct node* prev = NULL;
-		struct node* next = NULL;
-		while(curr){
-			next = curr->next;
-			curr->next = prev;
-			prev = curr;
-			curr = next;
+	void fib(int n, int i, int t) {
+		while (n < t) {
+			int k = n + i;
+			int j = n;
+			cout << n << ' ';
+			return fib(k, j, t);
 		}
-		head = prev;
 		cout << endl;
 	}
-	void display() {
-		struct node* curr = head;
-		while (curr) {
-			cout << curr->data << ' ';
-			curr = curr->next;
+	void prime(int n, int i) {
+		if (i == 1) {
+			cout << "is prime" << endl;
+		}
+		else if (n % i == 0) {
+			cout << "not prime" << endl;
+		}
+		else {
+			return prime(n, i - 1);
+		}
+	}
+	void reverse(char string[], int l, int h) {
+		if (l < h) {
+			swap(string[l], string[h]);
+			l++;
+			h--;
+			return reverse(string, l, h);
+		}
+	}
+	int bs(int a[], int l, int h, int t) {
+		if (l < h) {
+			int m = (l + h) / 2;
+			if (a[m] == t) {
+				return m;
+			}
+			else if (a[m] > t) {
+				return bs(a, l, m - 1, t);
+			}
+			else {
+				return bs(a, m + 1, h, t);
+			}
 		}
 	}
 };
 
 int main() {
 	/// <summary>
-	/// dfs/bfs
+	/// hash map
 	/// </summary>
 	/// <returns></returns>
-	graph g;
-	g.add(0, { 1, 2 }, 2);
-	g.add(1, { 0, 3, 4 }, 3);
-	g.add(2, { 0, 5, 6 }, 3);
-	g.add(3, { 1 }, 1);
-	g.add(4, { 1 }, 1);
-	g.add(5, { 2, 7 }, 2);
-	g.add(6, { 2 }, 1);
-	g.add(7, { 5 }, 1);
-
-	for (int i = 0; i < g.count; i++) {
-		if (g.verticies[i]->discovered == 0) {
-			//dfs(g, g.verticies[i]);
-		}
+	int size = 10;
+	hash_map h(size);
+	for (int i = 0; i < 10; i++) {
+		h.insert(i);
 	}
-
-	//bfs(g, g.verticies[0]);
+	h.display();
+	h.insert(17);
+	h.search(17);
 
 	/// <summary>
-	/// sort
+	/// sorting
 	/// </summary>
 	/// <returns></returns>
-	sorting s;
-	int a0[] = { 2, -5, 5, -2, 1 };
+	sorting so;
+	int a0[] = { 12, -4, 23, -34, 12 };
+	int a2[] = { 12, -4, 23, -34, 12 };
+	int a1[] = { 12, -4, 23, -34, 12 };
 	int len = 5;
-	s.mergesort(a0, len);
-	s.print(a0, len);
-
-	int a1[] = { 2, -5, 5, -2, 1 };
-	s.quicksort(a1, 0, len - 1);
-	s.print(a1, len);
-
-	int a2[] = { 2, -5, 5, -2, 1 };
-	s.heapsort(a2, len);
-	s.print(a2, len);
-
-	/// <summary>
-	/// recursion
-	/// </summary>
-	/// <returns></returns>
-	recursive rec;
-	rec.fib(1, 0, 9);
-	rec.prime(1010, 1009);
-	char word[] = "hello";
-	rec.reverse(word, 0, 5);
-	cout << word << endl;
-	int a[] = { 1, 5, 7, 8, 39 };
-	cout << rec.bin_search(a, 0, 5, 8) << endl;
-
-	/// <summary>
-	/// oop
-	/// </summary>
-	/// <returns></returns>
-	
-	animal an;
-	monkey mon;
-	cat ca;
-	zoo z;
-	char add[] = "tiger";
-	an.abstract(add, 6);
-	z.feed(&mon, "banana");
+	so.heapsort(a0, len);
+	so.print(a0, len);
+	so.heapsort(a1, len);
+	so.print(a1, len);
+	so.quicksort(a2, 0, len);
+	so.print(a2, len);
 
 	/// <summary>
 	/// linked list
 	/// </summary>
 	/// <returns></returns>
-	ll l;
-	for (int i = 0; i < 10; i++) {
-		l.add(i);
+	linked_list ll;
+	for (int i = 0; i < 12; i++) {
+		ll.add(i);
 	}
-	l.display();
-	l.reverse();
-	l.display();
+	ll.display();
+	ll.reverse();
+	ll.display();
+
+	/// <summary>
+	/// dfs/bfs
+	/// </summary>
+	/// <returns></returns>
+	graph g;
+	g.add(0, { 1,2,3 }, 3);
+	g.add(1, { 0 }, 1);
+	g.add(2, { 0, 4 }, 2);
+	g.add(3, { 0 }, 1);
+	g.add(4, { 2 }, 1);
+
+	//bfs(g, g.verticies[0]);
+	for (int i = 0; i < g.size; i++) {
+		vertex* v = g.verticies[i];
+		if (v->discovered == false) {
+			dfs(g, v);
+		}
+	}
+	cout << endl;
+
+	/// <summary>
+	/// OOP
+	/// </summary>
+	/// <returns></returns>
+	donkey d;
+	monkey m;
+	zoo z;
+	z.feed(&m, "banana");
+	z.feed(&d, "banana");
+	z.abstract(100);
+
+	/// <summary>
+	/// recursion
+	/// </summary>
+	/// <returns></returns>
+	recursion rs;
+	rs.fib(1, 0, 10);
+	rs.prime(101, 100);
+	char a[] = "hello";
+	rs.reverse(a, 0, 4);
+	cout << a << endl;
+	int a3[] = { 0, 12, 345, 2342, 456566 };
+	cout << rs.bs(a3, 0, 5, 12) << endl;
 	return 0;
 }
