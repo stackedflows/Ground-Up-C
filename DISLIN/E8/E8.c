@@ -59,11 +59,13 @@ float inner_product_plus(float * vect_0, float * vect_1){
 }
 
 // main program
-
 int main(void){
 
-  // base vector permutations of E8 root system
-
+  // conditions for base vectors of E8 root system
+  // roots span eight dim space, 
+  // linearly independent up untill -root
+  // closed under reflection through perpendicular plane
+  // if a,b are roots, then projection of b onto a is half integer or integer multiple of root
   float base_sys[8][8] = {
     {1,1,0,0,0,0,0,0},
     {1,-1,0,0,0,0,0,0},
