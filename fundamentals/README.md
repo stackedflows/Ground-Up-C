@@ -13,9 +13,9 @@
               a[j] = a[j+1]
               a[j+1] = temp
 
-    time complexity:
+    time complexity: O(n^2)
     
-    space complexity:
+    space complexity: O(1)
   
 ### quicksort
 
@@ -35,10 +35,10 @@
         swap(a[r], a[index])
         return index
         
-    time complexity:
+    time complexity: O(n^2)
                 
 
-    space complexity:
+    space complexity: O(n)
                 
 ### heapsort
 
@@ -61,7 +61,17 @@
             swap(a[0], a[len])
             heapify(a, i, 0)
             
+    time complexity: O(nlog(n))
+    
+    space complexity: O(n)
 
+### mergesort
+
+    
+    time complexity: O(nlog(n))
+    
+    space complexity: O(n)
+    
 ### dfs
 
         time complexity: O(V + E)
