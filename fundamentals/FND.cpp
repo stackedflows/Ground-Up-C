@@ -399,7 +399,7 @@ private:
 			bool is_prime = _prime(item);
 			if (is_prime) {
 				count++;
-				cout << item <<' ';
+				cout << item << ' ';
 			}
 			item++;
 		}
@@ -485,6 +485,44 @@ public:
 		add(_size + 5);
 		search(5);
 		search(15);
+	}
+};
+
+/// <summary>
+/// bin tree 
+/// </summary>
+class bin_tree {
+private:
+	struct node {
+		int data;
+		node* left;
+		node* right;
+		node(int _data) {
+			data = _data;
+			left = right = NULL;
+		}
+	};
+	node* root = NULL;
+public:
+	bin_tree() {
+		root = new node(11);
+		root->left = new node(6);
+		root->left->left = new node(3);
+		root->left->right = new node(9);
+		root->right = new node(17);
+		root->right->left = new node(12);
+		root->right->right = new node(20);
+	}
+	void bs(node* root, int n) {
+		if (root->data == n) {
+			cout << "true" << endl;
+		}
+		else if (root->data > n) {
+			bs(root->right, n);
+		}
+		else {
+			bs(root->left, n);
+		}
 	}
 };
 
