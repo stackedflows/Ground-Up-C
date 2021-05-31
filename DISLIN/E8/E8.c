@@ -1,7 +1,6 @@
-  
-// to run
-//  clink -c Ex8
-// ./Ex8
+/// to run ///
+// clink -c E8
+//./E8
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -82,18 +81,12 @@ int main(void){
     {-0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5}
   };
 
+  // create root system from base system
   for(int i = 0; i < 8; i++){
     permutations(base_sys[i],0,8);
   }
 
-  for(int i = 0; i < 240; i++){
-    for(int ii = 0; ii < 8; ii++){
-      printf("%f ", root_sys[i][ii]);
-    }
-  }
-
  //calculating distances between all roots, outputting correspondence matrix
-
   int distance_matrix[240][240];
   for(int i = 0; i < 240; i++){
     int dist_m = 100;
@@ -106,7 +99,6 @@ int main(void){
   }
 
   //use eig.py to calculate eigenvectors of root system . . . after some fiddling, these vectors appear
-
   float re[8] = {0.438217070641, 0.205187681291,
      0.36459828198, 0.0124511903657,
      -0.0124511903657, -0.36459828198,
@@ -117,6 +109,7 @@ int main(void){
     0.501826483552, 0.345040496917,
     0.167997088796, 0.118465163028};
 
+  //store locations of nodes in graph
   float rings_x[240];
   float rings_y[240];
 
@@ -129,10 +122,7 @@ int main(void){
     rings_y[i] = inner_product_plus(current_point, im);
   }
 
-  printf("\n");
-
   //graph the system
-
   scrmod("revers");
   setpag("da4l");
   metafl("cons");
@@ -159,7 +149,6 @@ int main(void){
   hsymbl(15);
 
   qplsca(rings_x, rings_y, 240);
-
 
   return 0;
 }
