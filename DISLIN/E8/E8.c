@@ -1,3 +1,4 @@
+  
 // to run
 //  clink -c Ex8
 // ./Ex8
@@ -9,16 +10,18 @@
 // method to generate all permutations of a set with repeated elements: the root system
 float root_sys[240][8];
 
-/// method to permute the basis roots, creating the root system
-int shouldSwap(float base[], int start, int curr){
+int count = 0;
+
+int shouldSwap(float base[], int start, int curr)
+{
     for (int i = start; i < curr; i++)
         if (base[i] == base[curr])
             return 0;
     return 1;
 }
 
-void permutations(float base[], int index, int n){
-    int count = 0;
+void permutations(float base[], int index, int n)
+{
     if (index >= n) {
         for(int i = 0; i < n; i++){
           root_sys[count][i] = base[i];
@@ -44,6 +47,7 @@ void permutations(float base[], int index, int n){
 }
 
 // function to list all distances from one node to others
+
 float inner_product(float * vect_0, float * vect_1){
   float sum = 0;
   for(int i = 0; i < 8; i++){
@@ -58,7 +62,8 @@ float inner_product_plus(float * vect_0, float * vect_1){
   }return sum;
 }
 
-// main program
+//
+
 int main(void){
 
   // conditions for base vectors of E8 root system
@@ -81,7 +86,6 @@ int main(void){
     permutations(base_sys[i],0,8);
   }
 
-   ///debug
   for(int i = 0; i < 240; i++){
     for(int ii = 0; ii < 8; ii++){
       printf("%f ", root_sys[i][ii]);
@@ -89,6 +93,7 @@ int main(void){
   }
 
  //calculating distances between all roots, outputting correspondence matrix
+
   int distance_matrix[240][240];
   for(int i = 0; i < 240; i++){
     int dist_m = 100;
@@ -100,7 +105,8 @@ int main(void){
     }
   }
 
-  //use eig.py to calculate eigenvectors of root system
+  //use eig.py to calculate eigenvectors of root system . . . after some fiddling, these vectors appear
+
   float re[8] = {0.438217070641, 0.205187681291,
      0.36459828198, 0.0124511903657,
      -0.0124511903657, -0.36459828198,
@@ -125,16 +131,15 @@ int main(void){
 
   printf("\n");
 
-  //graph calls
+  //graph the system
+
   scrmod("revers");
   setpag("da4l");
   metafl("cons");
   disini();
 
-  // define graphical space
   graf(-1.2, 1.2, -1.2, 1.2, -1.2, 1.2, -1.2, 1);
-    
-  // draw lines
+
   for(int i = 0; i < 240; i++){
     for(int ii = 0; ii < 240; ii++){
       int connect = distance_matrix[i][ii];
@@ -145,7 +150,6 @@ int main(void){
     }
   }
 
-  // label drawing
   titlin("E8", 1);
 
   name("R-axis", "x");
@@ -155,5 +159,7 @@ int main(void){
   hsymbl(15);
 
   qplsca(rings_x, rings_y, 240);
+
+
   return 0;
 }
