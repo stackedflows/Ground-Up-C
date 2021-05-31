@@ -61,8 +61,7 @@ float inner_product_plus(float * vect_0, float * vect_1){
   }return sum;
 }
 
-//
-
+// driver code
 int main(void){
 
   // conditions for base vectors of E8 root system
