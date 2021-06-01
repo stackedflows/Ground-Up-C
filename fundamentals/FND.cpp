@@ -1,35 +1,72 @@
 #include <iostream>
+#include <math.h>
 #include <vector>
 #include <queue>
-#include <math.h>
 
 using namespace std;
+
+/// <summary>
+/// oop
+/// </summary>
+class oop {
+private:
+	class animal {
+	public:
+		virtual bool eat(const char food[]) {
+			return NULL;
+		}
+	};
+
+	class monkey : public animal {
+	public:
+		bool eat(const char food[]) {
+			return food == "banana";
+		}
+	};
+
+	class maggot : public animal {
+	public:
+		bool eat(const char food[]) {
+			return food == "human";
+		}
+	};
+
+	class zoo {
+	private:
+		int size = 0;
+	public:
+		void feeder(animal* a, const char food[]) {
+			switch (a->eat(food)) {
+			case 1:
+				cout << "true" << endl;
+				break;
+			case 0:
+				cout << "false" << endl;
+				break;
+			}
+		}
+		void abstract(int _size) {
+			size = _size;
+			cout << size << endl;
+		}
+	};
+
+public:
+	oop() {
+		monkey mo;
+		maggot mag;
+		zoo z;
+		z.feeder(&mo, "banana");
+		z.feeder(&mag, "banana");
+		z.abstract(123);
+	}
+};
 
 /// <summary>
 /// sorting
 /// </summary>
 class sorting {
 private:
-	int partition(int a[], int l, int h) {
-		int piv = a[h];
-		int index = l;
-		for (int i = l; i < h; i++) {
-			if (a[i] < piv) {
-				swap(a[i], a[index]);
-				index++;
-			}
-		}
-		swap(a[index], a[h]);
-		return index;
-	}
-	void quicksort(int a[], int l, int h) {
-		if (l < h) {
-			int piv = partition(a, l, h);
-			quicksort(a, l, piv - 1);
-			quicksort(a, piv + 1, h);
-		}
-	}
-
 	void merge(int l[], int nl, int r[], int nr, int a[]) {
 		int i = 0, j = 0, k = 0;
 		while (i < nl && j < nr) {
@@ -77,12 +114,12 @@ private:
 		int right = 2 * x + 2;
 		if (left < len && a[largest] < a[left]) {
 			largest = left;
-		}
+;		}
 		if (right < len && a[largest] < a[right]) {
 			largest = right;
 		}
 		if (largest != x) {
-			swap(a[x], a[largest]);
+			swap(a[0], a[largest]);
 			heapify(a, len, largest);
 		}
 	}
@@ -91,38 +128,57 @@ private:
 			heapify(a, len, i);
 		}
 		for (int i = len - 1; i >= 0; i--) {
-			swap(a[0], a[i]);
+			swap(a[i], a[0]);
 			heapify(a, i, 0);
 		}
 	}
 
-	void print(int a[], int len) {
-		for (int i = 0; i < len; i++) {
-			cout << a[i] << ' ';
+	int partition(int a[], int l, int h) {
+		int piv = a[h];
+		int index = l;
+		for (int i = l; i < h; i++) {
+			if (a[index] < piv) {
+				swap(a[index], a[i]);
+				index++;
+			}
 		}
-		cout << endl;
+		swap(a[h], a[index]);
+		return index;
+	}
+	void quicksort(int a[], int l, int h) {
+		if (l < h) {
+			int pivot = partition(a, l, h);
+			quicksort(a, l, pivot - 1);
+			quicksort(a, pivot + 1, h);
+		}
+	}
+
+	void print(int a[], int l) {
+		for (int i = 0; i < l; i++) {
+			cout << a[i] << ' ';
+		}cout << endl;
 	}
 public:
 	sorting() {
+		int a0[] = { 12, 3, -3, 324, 23 };
 		int len = 5;
-		int a0[] = { -12,23,45,211,1 };
 		/// <summary>
-		/// tc: O(nlog(n))
-		/// sc: O(n)
+		/// tc: O(n^2), all pivots occur at edges
+		///	sc: O(n) max stack space required for recusive call
 		/// </summary>
-		mergesort(a0, len);
+		quicksort(a0, 0, len - 1);
 		print(a0, len);
-		int a1[] = { -12,23,45,211,1 };
+		int a1[] = { 12, 3, -3, 324, 23 };
 		/// <summary>
-		/// tc: O(n^2)
-		/// sc: O(n)
+		/// tc: O(nlog(n)), n passes, array split into log(n) levels, each of which
+		/// sc: O(n) array creation
 		/// </summary>
-		quicksort(a1, 0, len - 1);
+		mergesort(a1, len);
 		print(a1, len);
-		int a2[] = { -12,23,45,211,1 };
+		int a2[] = { 12, 3, -3, 324, 23 };
 		/// <summary>
-		/// tc: O(nlog(n))
-		/// sc: O(n)
+		/// tc: O(nlog(n)), n comparisons, max log(n) calls of recursion
+		/// sc: O(n), max stack space required for recurive call
 		/// </summary>
 		heapsort(a2, len);
 		print(a2, len);
@@ -130,303 +186,7 @@ public:
 };
 
 /// <summary>
-/// graph search
-/// </summary>
-class graph {
-private:
-	struct vertex {
-		int data;
-		vector<int> neibs;
-		int nneibs;
-		bool discovered = false;
-		vertex(int _data, vector<int> _neibs, int _nneibs) {
-			data = _data;
-			neibs = _neibs;
-			nneibs = _nneibs;
-		}
-	};
-	vector<vertex*> verticies;
-	void add(int data, vector<int> neibs, int nneibs) {
-		vertex* v = new vertex(data, neibs, nneibs);
-		verticies.push_back(v);
-	}
-	void _dfs(vertex* v) {
-		cout << v->data;
-		v->discovered = true;
-		vector<int> neibs = v->neibs;
-		int nneibs = v->nneibs;
-		for (int i = 0; i < nneibs; i++) {
-			vertex* cv = verticies[neibs[i]];
-			if (!cv->discovered) {
-				_dfs(cv);
-			}
-		}
-	}
-public:
-	graph() {
-		add(0, { 1,2,3 }, 3);
-		add(1, { 0,4,5 }, 3);
-		add(2, { 0 }, 1);
-		add(3, { 0 }, 1);
-		add(4, { 1 }, 1);
-		add(5, { 1 }, 1);
-	}
-	/// <summary>
-	/// tc: O(V+E)
-	/// sc: O(V)
-	/// </summary>
-	void bfs() {
-		vertex* root = verticies[0];
-		root->discovered = true;
-		queue<vertex*> q;
-		q.push(root);
-		while (q.size() > 0) {
-			vertex* cv = q.front();
-			vector<int> neibs = cv->neibs;
-			int nneibs = cv->nneibs;
-			q.pop();
-			for (int i = 0; i < nneibs; i++) {
-				vertex* v = verticies[neibs[i]];
-				if (!v->discovered) {
-					cout << v->data;
-					v->discovered = true;
-					q.push(v);
-				}
-			}
-		}
-		cout << endl;
-	}
-	void dfs() {
-		for (int i = 0; i < verticies.size(); i++) {
-			vertex* curr = verticies[i];
-			if (curr->discovered == false) {
-				_dfs(curr);
-			}
-		}
-		cout << endl;
-	}
-};
-
-/// <summary>
-/// binary trees
-/// tc: O(n)
-/// </summary>
-class tree {
-private:
-	struct node {
-		int data;
-		node* left;
-		node* right;
-		node(int _data) {
-			data = _data;
-			left = right = NULL;
-		}
-	};
-	node* root;
-	void pre_order(node* n) {
-		if (!n) {
-			return;
-		}
-		cout << n->data;
-		pre_order(n->left);
-		pre_order(n->right);
-	}
-	void in_order(node* n) {
-		if (!n) {
-			return;
-		}
-		in_order(n->left);
-		cout << n->data;
-		in_order(n->right);
-	}
-	void post_order(node* n) {
-		if (!n) {
-			return;
-		}
-		post_order(n->left);
-		post_order(n->right);
-		cout << n->data;
-	}
-public:
-	tree() {
-		root = new node(0);
-		root->left = new node(1);
-		root->right = new node(2);
-		root->left->left = new node(3);
-		root->left->right = new node(4);
-		cout << endl;
-		pre_order(root);
-		cout << endl;
-		in_order(root);
-		cout << endl;
-		post_order(root);
-		cout << endl;
-	}
-};
-
-/// <summary>
-/// linked list
-/// </summary>
-class linked_list {
-private:
-	struct node {
-		int data;
-		node* next;
-		node(int n) {
-			this->data = n;
-			this->next = NULL;
-		}
-	};
-	node* head;
-	void add(int n) {
-		node* nn = new node(n);
-		nn->next = head;
-		head = nn;
-	}
-	void reverse() {
-		node* curr = head;
-		node* prev = NULL;
-		node* next = NULL;
-		while (curr) {
-			next = curr->next;
-			curr->next = prev;
-			prev = curr;
-			curr = next;
-		}
-		head = prev;
-		cout << endl;
-	}
-	void display() {
-		node* c = head;
-		while (c) {
-			cout << c->data;
-			c = c->next;
-		}
-		cout << endl;
-	}
-public:
-	linked_list(int size) {
-		head = NULL;
-		for (int i = 0; i < size; i++) {
-			add(i);
-		}
-		display();
-		reverse();
-		display();
-	}
-};
-
-/// <summary>
-/// oop 
-/// </summary>
-class oop {
-private:
-	class animal {
-	public:
-		virtual bool eat(const char food[]) {
-			return NULL;
-		}
-	};
-
-	class monkey : public animal {
-	public:
-		bool eat(const char food[]) {
-			return food == "banana";
-		}
-	};
-
-	class rabbit : public animal {
-	public:
-		bool eat(const char food[]) {
-			return food == "leaves";
-		}
-	};
-
-	class zoo {
-	private:
-		int size = 0;
-	public:
-		void feeder(animal* a, const char food[]) {
-			cout << a->eat(food) << endl;
-		}
-		void abstract(int _size) {
-			size = _size;
-			cout << size << endl;
-		}
-	};
-public:
-	oop() {
-		monkey m;
-		rabbit r;
-		zoo z;
-		z.feeder(&m, "banana");
-		z.feeder(&r, "banana");
-		z.abstract(101);
-	}
-};
-
-/// <summary>
-/// recursion
-/// </summary>
-class recursion {
-private:
-	void _fib(int n, int i, int t) {
-		if (n < t) {
-			int k = n + i;
-			int j = n;
-			cout << k;
-			_fib(k, j, t);
-		}
-	}
-	void fib(int n) {
-		_fib(1, 0, n);
-		cout << endl;
-	}
-
-	bool _prime(int p) {
-		int lim = (int)sqrt(p) + 1;
-		for (int i = 2; i < lim; i++) {
-			if (p % i == 0) {
-				return false;
-			}
-		}
-		return true;
-	}
-	void prime(int n) {
-		int count = 0;
-		int item = 2;
-		while (count < n) {
-			bool is_prime = _prime(item);
-			if (is_prime) {
-				count++;
-				cout << item << ' ';
-			}
-			item++;
-		}
-		cout << endl;
-	}
-	void reverse(char arr[], int l, int h) {
-		if (l < h) {
-			swap(arr[l], arr[h]);
-			l++;
-			h--;
-			reverse(arr, l, h);
-		}
-	}
-public:
-	recursion() {
-		fib(20);
-		prime(15);
-		char wrd[] = "abcdef";
-		int size = 6;
-		cout << wrd << endl;
-		reverse(wrd, 0, 5);
-		cout << wrd << endl;
-	}
-};
-
-/// <summary>
-/// hashing
+/// hash map
 /// </summary>
 class hash_map {
 private:
@@ -438,102 +198,345 @@ private:
 			next = NULL;
 		}
 	};
-	int _size;
+	int size;
 	node** table;
 	int hash(int n) {
-		return n % _size;
+		return n % size;
 	}
 	void add(int n) {
 		int index = hash(n);
-		node* nn = table[index];
-		if (!nn) {
-			table[index] = new node(n);
+		node* nn = new node(n);
+		node* curr = table[index];
+		if (!curr) {
+			table[index] = nn;
 		}
 		else {
-			while (nn->next) {
-				nn = nn->next;
+			while (curr->next) {
+				curr = curr->next;
 			}
-			nn->next = new node(n);
+			curr->next = nn;
 		}
 	}
 	void search(int n) {
 		int index = hash(n);
 		node* curr = table[index];
 		int count = 0;
+		if (!curr) {
+			return;
+		}
 		while (curr) {
 			if (curr->val == n) {
-				cout << index << ':' << count;
+				cout << index << ':' << count << endl;
 			}
 			curr = curr->next;
 			count++;
 		}
-		cout << endl;
-	}
-	void display(int n) {
-		for (int i = 0; i < n; i++) {
-			cout << table[i]->val << ' ';
-		}cout << endl;
 	}
 public:
-	hash_map(int size) {
-		_size = size;
-		table = new node * [_size]();
+	hash_map(int n) {
+		size = n;
+		table = new node * [size]();
 		for (int i = 0; i < size; i++) {
 			add(i);
 		}
-		display(_size);
-		add(_size + 5);
-		search(5);
-		search(15);
+		search(4);
+		add(12);
+		search(12);
 	}
 };
 
 /// <summary>
-/// bin tree 
+/// linked list
 /// </summary>
-class bin_tree {
+class linked_list {
 private:
 	struct node {
-		int data;
+		int val;
+		node* next;
+		node(int n) {
+			val = n;
+			next = NULL;
+		}
+	};
+	node* head;
+	void add(int n) {
+		node* nn = new node(n);
+		nn->next = head;
+		head = nn;
+	}
+	void reverse() {
+		node* curr = head;
+		node* prev = NULL;
+		node * next = NULL;
+		while (curr) {
+			next = curr->next;
+			curr->next = prev;
+			prev = curr;
+			curr = next;
+		}
+		head = prev;
+	}
+	void display() {
+		node* curr = head;
+		while (curr) {
+			cout << curr->val << ' ';
+			curr = curr->next;
+		}
+		cout << endl;
+	}
+public:
+	linked_list() {
+		head = NULL;
+		for (int i = 0; i < 10; i++) {
+			add(i);
+		}
+		display();
+		reverse();
+		display();
+	}
+};
+
+/// <summary>
+/// graph search
+/// </summary>
+class graph {
+private:
+	struct vertex {
+		int id;
+		vector<int> neibs;
+		int nneibs;
+		bool discovered;
+		vertex(int _id, vector<int> _neibs, int _nneibs) {
+			this->id = _id;
+			this->neibs = _neibs;
+			this->nneibs = _nneibs;
+			this->discovered = false;
+		}
+	};
+	vector<vertex*> verticies;
+	void add(int id, vector<int> neibs, int nneibs) {
+		vertex* v = new vertex(id, neibs, nneibs);
+		verticies.push_back(v);
+	}
+
+	void _dfs(vertex* v) {
+		cout << v->id << ' ';
+		v->discovered = true;
+		vector<int> neibs = v->neibs;
+		int nneibs = v->nneibs;
+		for (int i = 0; i < nneibs; i++) {
+			vertex* cv = verticies[neibs[i]];
+			if (cv->discovered == false) {
+				_dfs(cv);
+			}
+		}
+	}
+	void dfs() {
+		for (int i = 0; i < verticies.size(); i++) {
+			vertex* v = verticies[i];
+			if (v->discovered == false) {
+				_dfs(v);
+			}
+		}
+	}
+
+	void bfs() {
+		vertex* root = verticies[0];
+		cout << root->id << ' ';
+		root->discovered = true;
+		queue<vertex*> q;
+		q.push(root);
+		while (q.size() > 0) {
+			vertex* v = q.front();
+			vector<int> neibs = v->neibs;
+			int nneibs = v->nneibs;
+			q.pop();
+			for (int i = 0; i < nneibs; i++) {
+				vertex* cv = verticies[neibs[i]];
+				if (cv->discovered == false) {
+					cout << cv->id << ' ';
+					cv->discovered = true;
+					q.push(cv);
+				}
+			}
+		}
+		cout << endl;
+	}
+public:
+	graph() {
+		add(0, { 1,2,3 }, 3);
+		add(1, { 0,4,5 }, 3);
+		add(2, { 0 }, 1);
+		add(3, { 0 }, 1);
+		add(4, { 1 }, 1);
+		add(5, { 1 }, 1);
+		//bfs();
+		dfs();
+		cout << endl;
+	}
+};
+/// <summary>
+/// tree
+/// </summary>
+class tree {
+private:
+	struct node {
+		int val;
 		node* left;
 		node* right;
-		node(int _data) {
-			data = _data;
+		node(int n) {
+			val = n;
 			left = right = NULL;
 		}
 	};
-	node* root = NULL;
-public:
-	bin_tree() {
-		root = new node(11);
-		root->left = new node(6);
-		root->left->left = new node(3);
-		root->left->right = new node(9);
-		root->right = new node(17);
-		root->right->left = new node(12);
-		root->right->right = new node(20);
+	node* root;
+	void pre(node* root) {
+		if (!root) { return; }
+		cout << root->val << ' ';
+		pre(root->left);
+		pre(root->right);
 	}
-	void bs(node* root, int n) {
-		if (root->data == n) {
-			cout << "true" << endl;
+public:
+	tree() {
+		root = new node(10);
+		root->left = new node(5);
+		root->right = new node(15);
+		root->right->left = new node(12);
+		root->right->right = new node(17);
+
+		pre(root);
+		cout << endl;
+	}
+};
+
+/// <summary>
+/// bst
+/// </summary>
+class bst {
+private:
+	struct node {
+		int val;
+		node* left;
+		node* right;
+		node(int n) {
+			val = n;
+			left = right = NULL;
 		}
-		else if (root->data > n) {
-			bs(root->right, n);
+	};
+	node* root;
+	void _binSrc(node* v, int t) {
+		if (v) {
+			if (v->val == t) {
+				cout << "found" << endl;
+			}
+			else if (v->val > t) {
+				_binSrc(v->left, t);
+			}
+			else {
+				_binSrc(v->right, t);
+			}
 		}
 		else {
-			bs(root->left, n);
+			cout << "not found" << endl;
 		}
+	}
+	void binarySearch(int k) {
+		return _binSrc(root, k);
+	}
+public:
+	bst() {
+		root = new node(10);
+		root->left = new node(5);
+		root->left->right = new node(8);
+		root->right = new node(15);
+		root->right->left = new node(11);
+		root->right->right = new node(18);
+
+		binarySearch(5);
+		binarySearch(17);
+		binarySearch(18);
+	}
+};
+
+/// <summary>
+/// recursion
+/// </summary>
+class recursion {
+private:
+	void _fib(int n, int i, int count, int target) {
+		if (count < target) {
+			int k = n + i;
+			int j = n;
+			cout << k << ' ';
+			_fib(k, j, count + 1, target);
+		}
+	}
+	void fib(int n) {
+		_fib(1, 0, 0, n);
+		cout << endl;
+	}
+
+	bool _prime(int curr) {
+		int m = (int)sqrt(curr) + 1;
+		for (int i = 2; i < m; i++) {
+			if (curr % i == 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+	void prime(int n) {
+		int count = 0;
+		int curr = 2;
+		while (count < n) {
+			if (_prime(curr)) {
+				cout << curr << ' ';
+				count++;
+			}
+			curr++;
+		}cout << endl;
+	}
+
+	void reverse(char wrd[], int low, int high) {
+		if (low < high) {
+			swap(wrd[low], wrd[high]);
+			low++;
+			high--;
+			reverse(wrd, low, high);
+		}
+	}
+
+	void permutations(char a[], int low, int high) {
+		if (low == high) {
+			cout << a << endl;
+		}
+		else {
+			for (int i = low; i < high; i++) {
+				swap(a[low], a[i]);
+				permutations(a, low + 1, high);
+				swap(a[low], a[i]);
+			}
+		}
+	}
+public:
+	recursion() {
+		fib(10);
+		prime(10);
+		char a[] = "asdf";
+		reverse(a, 0, 3);
+		cout << a << endl;
+		permutations(a, 0, 4);
 	}
 };
 
 int main() {
-	sorting s;
+	recursion rec;
+	tree tr;
 	graph g;
-	g.dfs();
-	tree t;
-	linked_list l(6);
-	oop o;
-	recursion r;
+	linked_list ll;
 	hash_map hm(10);
+	sorting s;
+	oop o;
+	bst bs;
 	return 0;
 }
