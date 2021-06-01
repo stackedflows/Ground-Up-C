@@ -9,18 +9,17 @@
 // method to generate all permutations of a set with repeated elements: the root system
 float root_sys[240][8];
 
-int count = 0;
 
-int shouldSwap(float base[], int start, int curr)
-{
+int shouldSwap(float base[], int start, int curr){
     for (int i = start; i < curr; i++)
         if (base[i] == base[curr])
             return 0;
     return 1;
 }
 
-void permutations(float base[], int index, int n)
-{
+void permutations(float base[], int index, int n){
+    int count = 0;
+
     if (index >= n) {
         for(int i = 0; i < n; i++){
           root_sys[count][i] = base[i];
