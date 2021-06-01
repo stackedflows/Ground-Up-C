@@ -9,7 +9,6 @@
 // method to generate all permutations of a set with repeated elements: the root system
 float root_sys[240][8];
 
-
 int shouldSwap(float base[], int start, int curr){
     for (int i = start; i < curr; i++)
         if (base[i] == base[curr])
