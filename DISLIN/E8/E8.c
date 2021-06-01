@@ -44,7 +44,6 @@ void permutations(float base[], int index, int n){
 }
 
 // function to list all distances from one node to others
-
 float inner_product(float * vect_0, float * vect_1){
   float sum = 0;
   for(int i = 0; i < 8; i++){
