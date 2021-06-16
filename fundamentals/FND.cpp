@@ -573,118 +573,6 @@ public:
 	}
 };
 
-class heapQ {
-private:
-	struct item {
-	public:
-		int val;
-		int pri;
-	};
-
-	int tailIndex;
-	int size;
-	vector<item> heap;
-
-public:
-	// O(logn)
-	void siftUp(int i) {
-		int above = floor((i - 1) / 2);
-		if (above >= 0 and heap[above].pri < heap[i].pri) {
-			swap(heap[i], heap[above]);
-			siftUp(above);
-		}
-	}
-
-	// O(logn)
-	void push(item item) {
-		heap.push_back(item);
-		size++;
-		siftUp(heap.size());
-	}
-
-	void siftDown(int i) {
-		int largest = i;
-		int left = 2 * i + 1;
-		int right = 2 * i + 2;
-		if (left < heap.size() and heap[largest].pri < heap[left].pri) {
-			largest = left;
-		}
-		if (right < heap.size() and heap[largest].pri < heap[right].pri) {
-			largest = right;
-		}
-		if (largest != i) {
-			swap(heap[i], heap[largest]);
-			siftDown(largest);
-		}
-	}
-
-	// O(logn)
-	int pop() {
-		item it = heap.front();
-		item hb = heap.back();
-		heap.front() = hb;
-		heap.pop_back();
-		siftDown(0);
-		return it.val;
-	}
-
-	void disp() {
-		for (int i = 0; i < heap.size(); i++) {
-			cout << heap[i].val << ':' << heap[i].pri << ' ';
-		}cout << endl;
-		cout << heap.size() << endl;
-	}
-
-	heapQ() {
-		
-		int a[] = { 1, 2, 8, 3, 0, 2, 6, 2, 6, 1, 5, 3, 5, 1 };
-		int len = sizeof(a) / sizeof(a[0]);
-
-		vector<item> freqs;
-
-		for (int i = 0; i < len; i++) {
-			item ite = { 0 , -1 };
-			freqs.push_back(ite);
-		}
-
-		for (int i = 0; i < len; i++) {
-			if (freqs[a[i]].pri == -1) {
-				freqs[a[i]].val = a[i];
-				freqs[a[i]].pri = 1;
-			}
-			else {
-				freqs[a[i]].pri++;
-			}
-
-		}
-
-		vector<item> freqsOut;
-
-		for (int i = 0; i < freqs.size(); i++) {
-			if (freqs[i].pri >= 0) {
-				freqsOut.push_back(freqs[i]);
-			}
-		}
-
-		size = freqsOut.size();
-		tailIndex = 0;
-		heap = freqsOut;
-
-		for (int i = 0; i < size; i++) {
-			siftUp(i);
-		}
-
-		cout << pop() << endl;
-		cout << pop() << endl;
-		cout << pop() << endl;
-		cout << pop() << endl;
-
-	}
-
-};
-
-
-
 int main() {
 	graph g;
 	recursion r;
@@ -694,6 +582,5 @@ int main() {
 	hashMap hm;
 	stack stk;
 	Queue q;
-	heapQ hq;
 	return 0;
 }
