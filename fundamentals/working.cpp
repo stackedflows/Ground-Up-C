@@ -1,6 +1,6 @@
-
 #include <iostream>
 #include <vector>
+#include <math.h>
 
 using namespace std;
 
@@ -11,15 +11,13 @@ private:
 		int pri;
 	};
 	vector<item> heap;
-	// O(logn)
 	void siftUp(int i) {
-		int above = (i - 1) / 2;
+		int above = floor((i - 1) / 2);
 		if (above >= 0 and heap[i].pri > heap[above].pri) {
 			swap(heap[i], heap[above]);
 			siftUp(above);
 		}
 	}
-	// O(logn)
 	void siftDown(int i) {
 		int largest = i;
 		int left = 2 * i + 1;
@@ -31,7 +29,7 @@ private:
 			largest = right;
 		}
 		if (largest != i) {
-			swap(heap[largest], heap[i]);
+			swap(heap[i], heap[largest]);
 			siftDown(largest);
 		}
 	}
@@ -41,50 +39,40 @@ public:
 		siftUp(heap.size() - 1);
 	}
 	int pop() {
-		swap(heap[0], heap[heap.size() - 1]);
-		int out = heap.back().val;
+		int top = heap.front().val;
+		item bottom = heap.back();
+		heap.front() = bottom;
 		heap.pop_back();
-		return out;
+		siftDown(0);
+		return top;
 	}
-	void disp() {
-		for (int i = 0; i < heap.size(); i++) {
-			cout << heap[i].val << ':' << heap[i].pri << ' ';
-		}cout << endl;
-	}
+
 	heapQ() {
-		int a[] = { 1, 2, 8, 3, 0, 2, 6, 2, 6, 1, 5, 3, 5, 1 };
+		int a[] = { 1,2,6,3,0,2,8,2,8,5,7,3,0,4,2,6,3 };
 		int len = sizeof(a) / sizeof(a[0]);
-		// top frequencies 1,2,3,6,5,8,0
-		vector<item> freqs_;
+		vector<item> pFreqs;
 		for (int i = 0; i < len; i++) {
-			item it = {0, -1};
-			freqs_.push_back(it);
+			item it;
+			it.pri = -1;
+			pFreqs.push_back(it);
 		}
-		for (int i = 0; i < freqs_.size(); i++) {
-			if (freqs_[a[i]].pri == -1) {
-				freqs_[a[i]].val = a[i];
-				freqs_[a[i]].pri = 1;
+		
+		for (int i = 0; i < pFreqs.size(); i++) {
+			if (pFreqs[a[i]].pri == -1) {
+				pFreqs[a[i]].pri = 1;
+				pFreqs[a[i]].val = a[i];
 			}
 			else {
-				freqs_[a[i]].pri++;
+				pFreqs[a[i]].pri++;
 			}
 		}
-		for (int i = 0; i < freqs_.size(); i++) {
-			if (freqs_[i].pri == -1) {
-				continue;
-			}
-			else {
-				cout << freqs_[i].val << ':' << freqs_[i].pri << ' ';
+		for (int i = 0; i < pFreqs.size(); i++) {
+			if (pFreqs[i].pri != -1) {
+				push(pFreqs[i]);
 			}
 		}
-		for (int i = 0; i < freqs_.size(); i++) {
-			if (freqs_[i].pri >= 0) {
-				push(freqs_[i]);
-			}
-		}
-		//disp();
 		while (heap.size() > 0) {
-			//cout << pop() << endl;
+			cout << pop() << endl;
 		}
 	}
 };
