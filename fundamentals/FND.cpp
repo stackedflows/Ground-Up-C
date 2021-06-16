@@ -575,55 +575,9 @@ public:
 
 class heapQ {
 private:
-	vector<int> heap;
-	void heapify(int len, int x) {
-		int largest = x;
-		int left = 2 * x + 1;
-		int right = 2 * x + 2;
-		if (left < len and heap[largest] < heap[left]) {
-			largest = left;
-		}
-		if (right < len and heap[right] < heap[right]) {
-			largest = right;
-		}
-		if (largest != x) {
-			swap(heap[largest], heap[x]);
-			heapify(len, largest);
-		}
-	}
-	void heapsort() {
-		int len = heap.size();
-		for (int i = (len / 2) - 1; i >= 0; i--) {
-			heapify(len, i);
-		}
-		for (int i = len - 1; i >= 0; i--) {
-			swap(heap[i], heap[0]);
-			heapify(i, 0);
-		}
-	}
-	void disp() {
-		for (int i = 0; i < heap.size(); i++) {
-			cout << heap[i] << ' ';
-		}cout << endl;
-	}
 public:
-	void push(int n) {
-		heap.push_back(n);
-		heapsort();
-	}
-	int pop() {
-		int out = heap.front();
-		heap.erase(heap.begin());
-		heapsort();
-		return out;
 	}
 	heapQ() {
-		for (int i = 0; i < 10; i++) {
-			heap.push_back(10 - i);
-		}
-		disp();
-		pop();
-		disp();
 	}
 };
 
